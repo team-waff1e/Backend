@@ -1,0 +1,43 @@
+package io.github.teamwaff1e.waffle.domain.comment.dao;
+
+import io.github.teamwaff1e.waffle.domain.comment.entity.Comment;
+import io.github.teamwaff1e.waffle.domain.dao.CrudDao;
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+@Component
+@Transactional
+@RequiredArgsConstructor
+public class CommentDao implements CrudDao<Comment, Long> {
+
+    private final EntityManager entityManager;
+
+    @Override
+    public Comment save(Comment comment) {
+        entityManager.persist(comment);
+        return comment;
+    }
+
+    @Override
+    public Optional<Comment> findById(Long id) { // todo: throw exception?
+        Comment comment = entityManager.find(Comment.class, id);
+        return Optional.ofNullable(comment);
+    }
+
+    public Comment updateById(Long id, String content) { // todo: 변경에 취약해지는 문제 발생
+        Comment comment = findById(id).orElseThrow(() -> new IllegalArgumentException());
+        comment.updateComment(content);
+        return comment;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        // todo: IllegalArgumentException -> IllegalIdArgumentException
+        Comment comment = findById(id).orElseThrow(() -> new IllegalArgumentException());
+        entityManager.remove(comment);
+    }
+}
