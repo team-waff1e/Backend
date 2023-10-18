@@ -30,6 +30,7 @@ public class CommentService {
         return converter.convert(comment);
     }
 
+    @Transactional(readOnly = true)
     public CommentResponseDto readComment(Long commentId) {
         Comment comment = commentRepository.find(commentId);
         return converter.convert(comment);

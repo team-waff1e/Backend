@@ -23,6 +23,7 @@ public class CommentDao implements CrudDao<Comment, Long> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Comment> findById(Long id) { // todo: throw exception?
         Comment comment = entityManager.find(Comment.class, id);
         return Optional.ofNullable(comment);

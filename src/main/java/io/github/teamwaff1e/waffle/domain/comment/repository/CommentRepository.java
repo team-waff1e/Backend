@@ -18,6 +18,7 @@ public class CommentRepository {
         return commentDao.save(comment);
     }
 
+    @Transactional(readOnly = true)
     public Comment find(Long commentId) {
         return commentDao.findById(commentId).orElseThrow(() -> new IllegalArgumentException());
     }
