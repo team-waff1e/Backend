@@ -1,66 +1,54 @@
 package io.github.teamwaff1e.waffle.domain.waffle.service;
 
-import io.github.teamwaff1e.waffle.domain.waffle.dto.WaffleDto;
+import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
+import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequestDto;
+import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
+import io.github.teamwaff1e.waffle.domain.waffle.dto.response.WaffleResponseDto;
 import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import io.github.teamwaff1e.waffle.domain.waffle.repository.WaffleRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class WaffleService {
 
     private final WaffleRepository waffleRepository;
+    private final DtoConverter<Waffle, WaffleResponseDto> converter;
 
-    private WaffleDto convertEntityToDto(Waffle waffle) {
-        return WaffleDto.builder()
-                .id(waffle.getId())
-                .content(waffle.getContent())
-                .createdAt(waffle.getCreatedAt().toString())
-                .updatedAt(waffle.getUpdatedAt().toString())
-                .likes(waffle.getLikes())
-                .memberId(waffle.getMemberId())
+    public WaffleResponseDto createWaffle(CreateWaffleRequestDto createWaffleRequestDto) {
+        Waffle newWaffle = Waffle.builder()
+                .content(createWaffleRequestDto.getContent())
+                .memberId(createWaffleRequestDto.getMemberId())
                 .build();
+
+        Waffle waffle =  waffleRepository.save(newWaffle);
+        return converter.convert(waffle);
     }
 
-    public WaffleService(WaffleRepository waffleRepository) {
-        this.waffleRepository = waffleRepository;
+    public WaffleResponseDto updateWaffle(UpdateWaffleRequestDto updateWaffleRequestDto) {
+        Waffle waffle = waffleRepository.update(updateWaffleRequestDto);
+        return converter.convert(waffle);
     }
 
-    public WaffleDto createWaffle(WaffleDto waffleDto) {
-        Waffle waffle = waffleDto.toEntity();
-        return waffleRepository.save(waffle);
+    public void deleteWaffle(Long waffleId) {
+        waffleRepository.delete(waffleId);
     }
 
-    public WaffleDto updateWaffle(WaffleDto waffleDto) {
-        Waffle waffle = waffleDto.toEntity();
-        return waffleRepository.update(waffle);
+    public WaffleResponseDto likeWaffle(Long waffleId) {
+        Waffle waffle = waffleRepository.likeById(waffleId);
+        return converter.convert(waffle);
     }
 
-    public String deleteWaffle(String waffleId) {
-        return waffleRepository.deleteById(waffleId);
+    public WaffleResponseDto unlikeWaffle(Long waffleId) {
+        Waffle waffle = waffleRepository.unlikeById(waffleId);
+        return converter.convert(waffle);
     }
 
-    public WaffleDto likeWaffle(String waffleId) {
-//        waffleRepository.likeById(waffleId);
-    }
-
-    public WaffleDto unlikeWaffle(String waffleId) {
-//        return waffleRepository.unlikeById(waffleId);
-    }
-
-    public WaffleDto readWaffle(String waffleId) {
-        Optional<Waffle> waffleWrapper = waffleRepository.findById(waffleId);
-        Waffle waffle = waffleWrapper.get();
-
-        WaffleDto waffleDto = WaffleDto.builder()
-                .id(waffle.getId())
-                .content(waffle.getContent())
-                .createdAt(waffle.getCreatedAt().toString())
-                .updatedAt(waffle.getUpdatedAt().toString())
-                .likes(waffle.getLikes())
-                .memberId(waffle.getMemberId())
-                .build();
-        return waffleDto;
+    public WaffleResponseDto readWaffle(Long waffleId) {
+        Waffle waffle = waffleRepository.find(waffleId);
+        return converter.convert(waffle);
     }
 }

@@ -6,30 +6,53 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 외부에서의 생성을 열어 둘 필요 ..? x
 @Getter
 public class Waffle {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Integer likes;
+    private Integer likes;  // TODO 엔티티로 분리?
+
 //    @ManyToOne  // TODO
+//    @JoinColumn(name = "member_id")
     private Long memberId;
 
     @Builder
-    public Waffle(Long id, String content, Timestamp createdAt, Timestamp updatedAt, Integer likes, Long memberId) {
+    protected Waffle(Long id, String content, Integer likes, Long memberId) {
         this.id = id;
         this.content = content;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.likes = likes;
         this.memberId = memberId;
 
+    }
+
+    @PrePersist
+    public void prePersist() {
+        updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
+        likes = 0;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public void updateWaffleContent(String content) {
+        this.content = content;
+    }
+
+    public void like() {
+        if(this.likes+1 < Integer.MAX_VALUE) this.likes++;
+    }
+
+    public void unlike() {
+        if(this.likes > 0) this.likes--;
     }
 }
