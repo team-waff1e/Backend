@@ -42,7 +42,7 @@ public class WaffleController {
 
     @PatchMapping("/{waffleId}")
     @ResponseStatus(HttpStatus.OK)
-    public WaffleResponseDto updateWaffle(@ModelAttribute UpdateWaffleRequestDto updateWaffleRequestDto, @PathVariable String waffleId, BindingResult bindingResult) {
+    public WaffleResponseDto updateWaffle(@ModelAttribute UpdateWaffleRequestDto updateWaffleRequestDto) {
         return waffleService.updateWaffle(updateWaffleRequestDto);
     }
 

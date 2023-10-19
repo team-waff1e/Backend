@@ -11,6 +11,6 @@ public class WaffleResponseDto implements ResponseDto {
     private Long id;
     private Long memberId;
     private String content;
-    private Integer likes;
+    private Long likes;
 
 }

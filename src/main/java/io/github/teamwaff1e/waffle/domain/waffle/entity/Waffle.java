@@ -18,14 +18,14 @@ public class Waffle {
     private String content;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Integer likes;  // TODO 엔티티로 분리?
+    private Long likes;  // TODO 엔티티로 분리?
 
 //    @ManyToOne  // TODO
 //    @JoinColumn(name = "member_id")
     private Long memberId;
 
     @Builder
-    protected Waffle(Long id, String content, Integer likes, Long memberId) {
+    protected Waffle(Long id, String content, Long likes, Long memberId) {
         this.id = id;
         this.content = content;
         this.likes = likes;
@@ -36,7 +36,7 @@ public class Waffle {
     @PrePersist
     public void prePersist() {
         updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-        likes = 0;
+        likes = 0L;
     }
 
     @PreUpdate

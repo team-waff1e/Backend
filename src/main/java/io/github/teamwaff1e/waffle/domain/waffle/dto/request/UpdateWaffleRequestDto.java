@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UpdateWaffleRequestDto implements RequestDto {
+
     private Long waffleId;
     @NotBlank
     private String content;
