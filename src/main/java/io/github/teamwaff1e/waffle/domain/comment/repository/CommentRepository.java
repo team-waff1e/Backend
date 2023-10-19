@@ -19,18 +19,22 @@ public class CommentRepository {
     }
 
     @Transactional(readOnly = true)
-    public Comment find(Long commentId) {
-        return commentDao.findById(commentId).orElseThrow(() -> new IllegalArgumentException());
+    public Comment find(Long waffleId, Long commentId) {
+        // todo: IllegalArgumentException -> IllegalIdArgumentException
+        // todo: 중복 코드
+        return commentDao.findById(commentId).orElseThrow(IllegalArgumentException::new);
     }
 
     public Comment update(UpdateCommentRequestDto commentRequestDto) {
-        return commentDao.updateById(
-                commentRequestDto.getCommentId(),
-                commentRequestDto.getContent()
-        );
+        Long commentId = commentRequestDto.getCommentId();
+        Comment comment = commentDao.findById(commentId).orElseThrow(IllegalArgumentException::new);
+        String content = commentRequestDto.getContent();
+
+        return commentDao.update(comment, content);
     }
 
-    public void delete(Long id) {
-        commentDao.deleteById(id);
+    public void delete(Long waffleId, Long commentId) {
+        Comment comment = commentDao.findById(commentId).orElseThrow(IllegalArgumentException::new);
+        commentDao.delete(comment);
     }
 }

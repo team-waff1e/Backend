@@ -29,16 +29,13 @@ public class CommentDao implements CrudDao<Comment, Long> {
         return Optional.ofNullable(comment);
     }
 
-    public Comment updateById(Long id, String content) { // todo: 변경에 취약해지는 문제 발생
-        Comment comment = findById(id).orElseThrow(() -> new IllegalArgumentException());
+    public Comment update(Comment comment, String content) { // todo: 변경에 취약해지는 문제 발생
         comment.updateComment(content);
         return comment;
     }
 
     @Override
-    public void deleteById(Long id) {
-        // todo: IllegalArgumentException -> IllegalIdArgumentException
-        Comment comment = findById(id).orElseThrow(() -> new IllegalArgumentException());
+    public void delete(Comment comment) {
         entityManager.remove(comment);
     }
 }
