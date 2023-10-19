@@ -31,8 +31,8 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public CommentResponseDto readComment(Long commentId) {
-        Comment comment = commentRepository.find(commentId);
+    public CommentResponseDto readComment(Long waffleId, Long commentId) {
+        Comment comment = commentRepository.find(waffleId, commentId);
         return converter.convert(comment);
     }
 
@@ -41,7 +41,7 @@ public class CommentService {
         return converter.convert(comment);
     }
 
-    public void deleteComment(Long commentId) {
-        commentRepository.delete(commentId);
+    public void deleteComment(Long waffleId, Long commentId) {
+        commentRepository.delete(waffleId, commentId);
     }
 }
