@@ -2,17 +2,15 @@ package io.github.teamwaff1e.waffle.domain.Member.sevice;
 
 import io.github.teamwaff1e.waffle.domain.Member.dto.request.CreateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.Member.dto.request.UpdateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberDeleteResponseDto;
 import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberResponseDto;
-import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
-import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
+import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@Transactional
 class MemberServiceTest {
 
     @Autowired
@@ -45,10 +43,10 @@ class MemberServiceTest {
 
         Assertions.assertThat(updateMember.getNickname()).isEqualTo(tempNick);
 
-        MemberDeleteResponseDto deleteResponseDto = memberService.deleteMember(newMember.getId());
+        boolean deleteResponseDto = memberService.deleteMember(newMember.getId());
 
 
-        Assertions.assertThat(deleteResponseDto.isSuccess()).isEqualTo(true);
+        Assertions.assertThat(deleteResponseDto).isEqualTo(true);
     }
 
 

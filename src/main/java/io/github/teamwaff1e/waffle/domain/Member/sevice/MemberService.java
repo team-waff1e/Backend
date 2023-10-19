@@ -2,7 +2,6 @@ package io.github.teamwaff1e.waffle.domain.Member.sevice;
 
 import io.github.teamwaff1e.waffle.domain.Member.dto.request.CreateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.Member.dto.request.UpdateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberDeleteResponseDto;
 import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberResponseDto;
 import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.Member.repository.MemberRepository;
@@ -42,17 +41,11 @@ public class MemberService {
         return converter.convert((member));
     }
 
-    public MemberDeleteResponseDto deleteMember(Long memberId){
+    public boolean deleteMember(Long memberId){
         memberRepository.delete(memberId);
 
-        MemberDeleteResponseDto memberDeleteResponseDto =
-                MemberDeleteResponseDto.builder()
-                        .code(1000)
-                        .result("성공")
-                        .message("요청 성공")
-                        .isSuccess(true)
-                        .build();
 
-        return memberDeleteResponseDto;
+
+        return true;
     }
 }
