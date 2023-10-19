@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.comment.dto.request;
+package io.github.teamwaff1e.waffle.domain.Member.dto.request;
 
 import io.github.teamwaff1e.waffle.domain.dto.RequestDto;
 import jakarta.validation.constraints.NotBlank;

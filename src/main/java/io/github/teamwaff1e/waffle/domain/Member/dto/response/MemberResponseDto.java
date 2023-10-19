@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.comment.dto.response;
+package io.github.teamwaff1e.waffle.domain.Member.dto.response;
 
 import io.github.teamwaff1e.waffle.domain.dto.ResponseDto;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class MemberResponseDto implements ResponseDto {
     private String pwd;
     private String name;
     private String nickname;
-    private String profile_url;
+    private String profileUrl;
     private Timestamp updatedAt;
 
 }

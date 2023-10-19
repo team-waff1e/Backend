@@ -1,9 +1,7 @@
-package io.github.teamwaff1e.waffle.domain.comment.dto.converter;
+package io.github.teamwaff1e.waffle.domain.Member.dto.converter;
 
-import io.github.teamwaff1e.waffle.domain.comment.dto.response.CommentResponseDto;
-import io.github.teamwaff1e.waffle.domain.comment.dto.response.MemberResponseDto;
-import io.github.teamwaff1e.waffle.domain.comment.entity.Comment;
-import io.github.teamwaff1e.waffle.domain.comment.entity.Member;
+import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberResponseDto;
+import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
 
 public class MemberToResponseConverter implements DtoConverter<Member, MemberResponseDto> {
@@ -16,7 +14,7 @@ public class MemberToResponseConverter implements DtoConverter<Member, MemberRes
                 .name(member.getName())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
-                .profile_url((member.getProfile_url()))
+                .profileUrl((member.getProfileUrl()))
                 .updatedAt(member.getUpdatedAt())
                 .build();
     }

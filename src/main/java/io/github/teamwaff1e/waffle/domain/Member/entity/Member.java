@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.comment.entity;
+package io.github.teamwaff1e.waffle.domain.Member.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -22,17 +22,21 @@ public class Member {
     private String pwd;
     private String name;
     private String nickname;
-    private String profile_url;
+    private String profileUrl;
 
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
 
     @Builder
-    protected Member(String content, String pwd, String name, String nickname) {
+    protected Member(String email, String pwd, String name, String nickname) {
         this.email = email;
         this.pwd = pwd;
         this.name = name;
+        this.nickname = nickname;
+    }
+
+    public void updateNickname(String nickname){
         this.nickname = nickname;
     }
 
