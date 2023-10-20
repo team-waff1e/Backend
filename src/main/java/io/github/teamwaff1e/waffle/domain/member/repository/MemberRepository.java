@@ -29,6 +29,6 @@ public class MemberRepository {
     }
 
     public void delete(Long id) {
-        memberDao.deleteById(id);
+//        memberDao.deleteById(id);
     }
 }

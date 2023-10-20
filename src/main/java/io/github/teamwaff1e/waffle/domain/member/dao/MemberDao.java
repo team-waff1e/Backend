@@ -35,10 +35,15 @@ public class MemberDao implements CrudDao<Member, Long> {
         return member;
     }
 
+//    @Override
+//    public void deleteById(Long id) {
+//        // todo: IllegalArgumentException -> IllegalIdArgumentException
+//        Member member = findById(id).orElseThrow(() -> new IllegalArgumentException());
+//        entityManager.remove(member);
+//    }
+
     @Override
-    public void deleteById(Long id) {
-        // todo: IllegalArgumentException -> IllegalIdArgumentException
-        Member member = findById(id).orElseThrow(() -> new IllegalArgumentException());
-        entityManager.remove(member);
+    public void delete(Member entity) {
+
     }
 }

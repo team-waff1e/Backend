@@ -23,7 +23,7 @@ public class WaffleRepository {
     }
 
     public void delete(Long waffleId) {
-        waffleDao.deleteById(waffleId);
+
     }
 
     public Waffle likeById(Long waffleId) {
