@@ -10,3 +10,5 @@ public interface CrudDao<T, ID> {
 
     void deleteById(ID id);
 }
+
+// upudate dto -> service에서 까서 쓸수 x
