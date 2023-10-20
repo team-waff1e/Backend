@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.dao;
+package io.github.teamwaff1e.waffle.global.dao;
 
 import java.util.Optional;
 

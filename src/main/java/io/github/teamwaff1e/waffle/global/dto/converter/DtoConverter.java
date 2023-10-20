@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.dto.converter;
+package io.github.teamwaff1e.waffle.global.dto.converter;
 
 @FunctionalInterface
 public interface DtoConverter<T, R> {

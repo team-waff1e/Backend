@@ -1,7 +1,7 @@
 package io.github.teamwaff1e.waffle.domain.member.dao;
 
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
-import io.github.teamwaff1e.waffle.domain.dao.CrudDao;
+import io.github.teamwaff1e.waffle.global.dao.CrudDao;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

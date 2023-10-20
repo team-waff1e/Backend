@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.waffle.dao;
 
-import io.github.teamwaff1e.waffle.domain.dao.CrudDao;
+import io.github.teamwaff1e.waffle.global.dao.CrudDao;
 import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

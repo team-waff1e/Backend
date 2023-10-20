@@ -5,7 +5,7 @@ import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequest
 import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
-import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
+import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

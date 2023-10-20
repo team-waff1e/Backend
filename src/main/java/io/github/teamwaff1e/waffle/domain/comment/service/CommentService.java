@@ -5,7 +5,7 @@ import io.github.teamwaff1e.waffle.domain.comment.dto.request.UpdateCommentReque
 import io.github.teamwaff1e.waffle.domain.comment.dto.response.CommentResponseDto;
 import io.github.teamwaff1e.waffle.domain.comment.entity.Comment;
 import io.github.teamwaff1e.waffle.domain.comment.repository.CommentRepository;
-import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
+import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

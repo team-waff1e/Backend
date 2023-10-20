@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.waffle.service;
 
-import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
+import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.response.WaffleResponseDto;
