@@ -4,6 +4,8 @@ import io.github.teamwaff1e.waffle.domain.dto.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 public class WaffleResponseDto implements ResponseDto {
@@ -12,5 +14,7 @@ public class WaffleResponseDto implements ResponseDto {
     private Long memberId;
     private String content;
     private Long likes;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
