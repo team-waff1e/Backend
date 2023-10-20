@@ -6,7 +6,6 @@ import io.github.teamwaff1e.waffle.domain.waffle.dto.response.WaffleResponseDto;
 import io.github.teamwaff1e.waffle.domain.waffle.service.WaffleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

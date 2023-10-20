@@ -3,7 +3,6 @@ package io.github.teamwaff1e.waffle.domain.comment.controller;
 import io.github.teamwaff1e.waffle.domain.comment.dto.request.CreateCommentRequestDto;
 import io.github.teamwaff1e.waffle.domain.comment.dto.request.UpdateCommentRequestDto;
 import io.github.teamwaff1e.waffle.domain.comment.dto.response.CommentResponseDto;
-import io.github.teamwaff1e.waffle.domain.comment.entity.Comment;
 import io.github.teamwaff1e.waffle.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
