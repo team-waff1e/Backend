@@ -8,7 +8,5 @@ public interface CrudDao<T, ID> {
 
     Optional<T> findById(ID id);
 
-    void deleteById(ID id);
+    void delete(T entity);
 }
-
-// upudate dto -> service에서 까서 쓸수 x
