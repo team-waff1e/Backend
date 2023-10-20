@@ -39,6 +39,14 @@ public class Waffle {
         likes = 0L;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt.toLocalDateTime();
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt.toLocalDateTime();
+    }
+
     @PreUpdate
     public void preUpdate() {
         updatedAt = Timestamp.valueOf(LocalDateTime.now());
@@ -49,10 +57,10 @@ public class Waffle {
     }
 
     public void like() {
-        if(this.likes+1 < Integer.MAX_VALUE) this.likes++;
+        if(this.likes+1 < Long.MAX_VALUE) this.likes++;
     }
 
     public void unlike() {
-        if(this.likes > 0) this.likes--;
+        if(this.likes > 0L) this.likes--;
     }
 }
