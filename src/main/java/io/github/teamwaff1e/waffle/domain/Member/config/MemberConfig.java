@@ -1,7 +1,7 @@
-package io.github.teamwaff1e.waffle.domain.Member.config;
+package io.github.teamwaff1e.waffle.domain.member.config;
 
 
-import io.github.teamwaff1e.waffle.domain.Member.dto.converter.MemberToResponseConverter;
+import io.github.teamwaff1e.waffle.domain.member.dto.converter.MemberToResponseConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

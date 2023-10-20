@@ -1,9 +1,9 @@
-package io.github.teamwaff1e.waffle.domain.Member.controller;
+package io.github.teamwaff1e.waffle.domain.member.controller;
 
-import io.github.teamwaff1e.waffle.domain.Member.dto.request.CreateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.request.UpdateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberResponseDto;
-import io.github.teamwaff1e.waffle.domain.Member.sevice.MemberService;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
+import io.github.teamwaff1e.waffle.domain.member.sevice.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

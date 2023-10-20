@@ -1,10 +1,10 @@
-package io.github.teamwaff1e.waffle.domain.Member.sevice;
+package io.github.teamwaff1e.waffle.domain.member.sevice;
 
-import io.github.teamwaff1e.waffle.domain.Member.dto.request.CreateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.request.UpdateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.dto.response.MemberResponseDto;
-import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
-import io.github.teamwaff1e.waffle.domain.Member.repository.MemberRepository;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
+import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
 import io.github.teamwaff1e.waffle.domain.dto.converter.DtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

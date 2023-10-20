@@ -1,6 +1,6 @@
-package io.github.teamwaff1e.waffle.domain.Member.dao;
+package io.github.teamwaff1e.waffle.domain.member.dao;
 
-import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.dao.CrudDao;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;

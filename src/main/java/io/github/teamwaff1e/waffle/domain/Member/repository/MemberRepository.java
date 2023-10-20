@@ -1,9 +1,8 @@
-package io.github.teamwaff1e.waffle.domain.Member.repository;
+package io.github.teamwaff1e.waffle.domain.member.repository;
 
-import io.github.teamwaff1e.waffle.domain.Member.dao.MemberDao;
-import io.github.teamwaff1e.waffle.domain.Member.dto.request.UpdateMemberRequestDto;
-import io.github.teamwaff1e.waffle.domain.Member.entity.Member;
-import io.github.teamwaff1e.waffle.domain.comment.dto.request.UpdateCommentRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dao.MemberDao;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

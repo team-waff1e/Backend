@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.Member.dto.response;
+package io.github.teamwaff1e.waffle.domain.member.dto.response;
 
 import io.github.teamwaff1e.waffle.domain.dto.ResponseDto;
 import lombok.Builder;

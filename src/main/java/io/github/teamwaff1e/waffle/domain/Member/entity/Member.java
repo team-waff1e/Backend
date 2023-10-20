@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.Member.entity;
+package io.github.teamwaff1e.waffle.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
