@@ -4,7 +4,7 @@ import io.github.teamwaff1e.waffle.domain.dto.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -13,6 +13,7 @@ public class CommentResponseDto implements ResponseDto {
     private Long id;
     private Long waffleId;
     private String content;
-    private Timestamp updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

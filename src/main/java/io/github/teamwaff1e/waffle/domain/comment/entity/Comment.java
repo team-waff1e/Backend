@@ -42,6 +42,14 @@ public class Comment {
         this.content = content;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt.toLocalDateTime();
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt.toLocalDateTime();
+    }
+
     @PrePersist
     public void prePersist() {
         updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
