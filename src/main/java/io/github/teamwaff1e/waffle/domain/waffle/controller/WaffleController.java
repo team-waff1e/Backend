@@ -52,8 +52,7 @@ public class WaffleController {
     }
 
     // TODO like 요구사항 도출 후 수정
-    // 현시점 waffle과 분리될 가능성 있으므로 post로 명세
-
+    // 여기로 접근하면 작성자 아닌 다른 사람 정보
     @PostMapping("/{waffleId}/like")
     @ResponseStatus(HttpStatus.OK)
     public WaffleResponseDto likeWaffle(@PathVariable Long waffleId) {
