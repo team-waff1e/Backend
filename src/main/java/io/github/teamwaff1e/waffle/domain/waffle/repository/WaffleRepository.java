@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -23,7 +24,8 @@ public class WaffleRepository {
     }
 
     public void delete(Long waffleId) {
-
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffleDao.delete(waffle);
     }
 
     public Waffle likeById(Long waffleId) {
@@ -35,7 +37,7 @@ public class WaffleRepository {
     }
 
     public Waffle find(Long waffleId) {
-        return waffleDao.findById(waffleId).orElseThrow(() -> new IllegalArgumentException());
+        return waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
     }
 
     public List<Waffle> findAll() {

@@ -30,7 +30,7 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
     }
 
     public Waffle updateContentById(Long waffleId, String content) {
-        Waffle waffle = findById(waffleId).orElseThrow(() -> new IllegalArgumentException());
+        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.updateWaffleContent(content);
         return waffle;
     }
@@ -38,12 +38,12 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
     // TODO like logic 요구사항 도출
 
     public Waffle likeById(Long waffleId) {
-        Waffle waffle = findById(waffleId).orElseThrow(() -> new IllegalArgumentException());
+        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.like();
         return waffle;
     }
     public Waffle unlikeById(Long waffleId) {
-        Waffle waffle = findById(waffleId).orElseThrow(() -> new IllegalArgumentException());
+        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.unlike();
         return waffle;
     }
@@ -55,8 +55,8 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
 //    }
 
     @Override
-    public void delete(Waffle entity) {
-
+    public void delete(Waffle waffle) {
+        entityManager.remove(waffle);
     }
 
     public List<Waffle> findAll() {
