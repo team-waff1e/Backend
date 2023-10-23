@@ -1,5 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.member.dao;
 
+import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.global.dao.CrudDao;
 import jakarta.persistence.EntityManager;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,9 +30,9 @@ public class MemberDao implements CrudDao<Member, Long> {
         return Optional.ofNullable(member);
     }
 
-    public Member updateById(Member member, String nickname) { //
+    public Member updateById(Member member, String nickname) {
         member.updateNickname(nickname);
-        // entityManager.merge(member);
+//        entityManager.merge(member);
         return member;
     }
 
@@ -38,5 +40,15 @@ public class MemberDao implements CrudDao<Member, Long> {
     @Override
     public void delete(Member member) {
         entityManager.remove(member);
+    }
+
+    public void follow(Follow follow){
+        entityManager.persist(follow);
+    }
+
+    public List<Follow> findFollowById(Long memberId){
+        return entityManager.createQuery("select f from Follow as f where f.memberId=:id",Follow.class)
+                .setParameter("id" , memberId)
+                .getResultList();
     }
 }

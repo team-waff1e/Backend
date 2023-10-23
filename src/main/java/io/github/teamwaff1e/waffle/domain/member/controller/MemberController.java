@@ -2,6 +2,7 @@ package io.github.teamwaff1e.waffle.domain.member.controller;
 
 
 import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dto.request.FollowRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
 import io.github.teamwaff1e.waffle.domain.member.service.MemberService;
@@ -45,5 +46,16 @@ public class MemberController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(){
         memberService.deleteMember(1L);// Todo :: 임시
+    }
+
+    @PostMapping("/follow")
+    @ResponseStatus(HttpStatus.OK)
+    public void follow (@ModelAttribute FollowRequestDto followRequestDto){
+
+    }
+    @GetMapping("/follow/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void readFollowById (@PathVariable Long memberd){
+
     }
 }
