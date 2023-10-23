@@ -30,7 +30,7 @@ public class MemberDao implements CrudDao<Member, Long> {
 
     public Member updateById(Member member, String nickname) { //
         member.updateNickname(nickname);
-        entityManager.merge(member);
+        // entityManager.merge(member);
         return member;
     }
 
