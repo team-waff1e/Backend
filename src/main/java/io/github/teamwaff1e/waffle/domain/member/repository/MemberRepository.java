@@ -22,13 +22,15 @@ public class MemberRepository {
         return memberDao.findById(memberId).orElseThrow(() -> new IllegalArgumentException());
     }
 
-    public Member update(long memberId, UpdateMemberRequestDto updateMemberRequestDto) {
-        return memberDao.updateById(memberId,
+    public Member update(long id, UpdateMemberRequestDto updateMemberRequestDto) {
+        Member member = memberDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        return memberDao.updateById(member,
                 updateMemberRequestDto.getNickname()
         );
     }
 
     public void delete(Long id) {
-//        memberDao.deleteById(id);
+        Member member = memberDao.findById(id).orElseThrow(IllegalArgumentException::new);
+        memberDao.delete(member);
     }
 }

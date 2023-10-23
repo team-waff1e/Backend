@@ -28,22 +28,15 @@ public class MemberDao implements CrudDao<Member, Long> {
         return Optional.ofNullable(member);
     }
 
-    public Member updateById(Long id, String nickname) { //
-        Member member = findById(id).orElseThrow(() -> new IllegalArgumentException());
+    public Member updateById(Member member, String nickname) { //
         member.updateNickname(nickname);
-        entityManager.merge(member);
+        // entityManager.merge(member);
         return member;
     }
 
-//    @Override
-//    public void deleteById(Long id) {
-//        // todo: IllegalArgumentException -> IllegalIdArgumentException
-//        Member member = findById(id).orElseThrow(() -> new IllegalArgumentException());
-//        entityManager.remove(member);
-//    }
 
     @Override
-    public void delete(Member entity) {
-
+    public void delete(Member member) {
+        entityManager.remove(member);
     }
 }

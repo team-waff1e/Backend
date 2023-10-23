@@ -1,13 +1,15 @@
-package io.github.teamwaff1e.waffle.domain.member.sevice;
+package io.github.teamwaff1e.waffle.domain.member.service;
 
 import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
-import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -48,6 +50,4 @@ class MemberServiceTest {
 
         Assertions.assertThat(deleteResponseDto).isEqualTo(true);
     }
-
-
 }
