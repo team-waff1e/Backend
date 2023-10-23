@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.member.sevice;
+package io.github.teamwaff1e.waffle.domain.member.service;
 
 import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
