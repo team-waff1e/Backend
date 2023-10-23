@@ -29,11 +29,21 @@ public class WaffleRepository {
     }
 
     public Waffle likeById(Long waffleId) {
-        return waffleDao.likeById(waffleId);
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.like();
+        return waffle;
     }
 
     public Waffle unlikeById(Long waffleId) {
-        return waffleDao.unlikeById(waffleId);
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.unlike();
+        return waffle;
+    }
+
+    public Waffle update(UpdateWaffleRequestDto updateWaffleRequestDto) {
+        Waffle waffle = waffleDao.findById(updateWaffleRequestDto.getWaffleId()).orElseThrow(IllegalArgumentException::new);
+        waffle.updateWaffleContent(updateWaffleRequestDto.getContent());
+        return waffle;
     }
 
     public Waffle find(Long waffleId) {
@@ -42,12 +52,5 @@ public class WaffleRepository {
 
     public List<Waffle> findAll() {
         return waffleDao.findAll();
-    }
-
-    public Waffle update(UpdateWaffleRequestDto updateWaffleRequestDto) {
-
-        return waffleDao.updateContentById(
-                updateWaffleRequestDto.getWaffleId(),
-                updateWaffleRequestDto.getContent());
     }
 }
