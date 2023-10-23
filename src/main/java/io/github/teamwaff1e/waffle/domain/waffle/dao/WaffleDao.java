@@ -29,31 +29,6 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
         return Optional.ofNullable(waffle);
     }
 
-    public Waffle updateContentById(Long waffleId, String content) {
-        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
-        waffle.updateWaffleContent(content);
-        return waffle;
-    }
-
-    // TODO like logic 요구사항 도출
-
-    public Waffle likeById(Long waffleId) {
-        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
-        waffle.like();
-        return waffle;
-    }
-    public Waffle unlikeById(Long waffleId) {
-        Waffle waffle = findById(waffleId).orElseThrow(IllegalArgumentException::new);
-        waffle.unlike();
-        return waffle;
-    }
-
-//    @Override
-//    public void deleteById(Long waffleId) {
-//        Waffle waffle = findById(waffleId).orElseThrow(() -> new IllegalArgumentException());
-//        entityManager.remove(waffle);
-//    }
-
     @Override
     public void delete(Waffle waffle) {
         entityManager.remove(waffle);
