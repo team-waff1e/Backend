@@ -28,13 +28,13 @@ public class WaffleRepository {
         waffleDao.delete(waffle);
     }
 
-    public Waffle likeById(Long waffleId) {
+    public Waffle like(Long waffleId) {
         Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.like();
         return waffle;
     }
 
-    public Waffle unlikeById(Long waffleId) {
+    public Waffle unlike(Long waffleId) {
         Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.unlike();
         return waffle;

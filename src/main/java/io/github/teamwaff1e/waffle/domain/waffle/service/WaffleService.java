@@ -38,12 +38,12 @@ public class WaffleService {
     }
 
     public WaffleResponseDto likeWaffle(Long waffleId) {
-        Waffle waffle = waffleRepository.likeById(waffleId);
+        Waffle waffle = waffleRepository.like(waffleId);
         return converter.convert(waffle);
     }
 
     public WaffleResponseDto unlikeWaffle(Long waffleId) {
-        Waffle waffle = waffleRepository.unlikeById(waffleId);
+        Waffle waffle = waffleRepository.unlike(waffleId);
         return converter.convert(waffle);
     }
 
