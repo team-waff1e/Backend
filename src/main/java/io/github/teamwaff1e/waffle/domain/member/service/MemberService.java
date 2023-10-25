@@ -44,8 +44,6 @@ public class MemberService {
     public boolean deleteMember(Long memberId){
         memberRepository.delete(memberId);
 
-
-
         return true;
     }
 }
