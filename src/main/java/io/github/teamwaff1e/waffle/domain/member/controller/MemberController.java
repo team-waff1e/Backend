@@ -51,7 +51,10 @@ public class MemberController {
     @PostMapping("/follow")
     @ResponseStatus(HttpStatus.OK)
     public void follow (@ModelAttribute FollowRequestDto followRequestDto){
-
+    }
+    @PostMapping("/unfollow")
+    @ResponseStatus(HttpStatus.OK)
+    public void unfollow (@ModelAttribute FollowRequestDto followRequestDto){
     }
     @GetMapping("/follow/{memberId}")
     @ResponseStatus(HttpStatus.OK)

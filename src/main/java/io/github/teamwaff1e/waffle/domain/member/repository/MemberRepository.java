@@ -40,6 +40,9 @@ public class MemberRepository {
     public void follow(Follow follow){
         memberDao.follow(follow);
     }
+    public void unfollow(Long memberId,Long followingId){
+        memberDao.unfollow(memberId,followingId);
+    }
     public List<Follow> ReadFollow(Long memberId){
 
         return memberDao.findFollowById(memberId);

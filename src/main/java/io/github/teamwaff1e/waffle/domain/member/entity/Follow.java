@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow {
 
+
     @Id
     @NotNull
     private Long memberId;
@@ -36,5 +37,9 @@ public class Follow {
     public void prePersist() {createdAt = Timestamp.valueOf(LocalDateTime.now());
     }
 
+    @Override
+    public String toString(){
+        return memberId + " to " + followingId;
+    }
 
 }

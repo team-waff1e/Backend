@@ -59,6 +59,11 @@ public class MemberService {
         // todo : 성공 및 실패 여부에 따른 분기 처리
         return true;
     }
+    public boolean unfollow(Long memberId,Long followingId){
+        memberRepository.unfollow(memberId,followingId);
+        // todo : 성공 및 실패 여부에 따른 분기 처리
+        return true;
+    }
 
     public List<Follow> readFollowById(Long followingId){
         return memberRepository.ReadFollow(followingId);

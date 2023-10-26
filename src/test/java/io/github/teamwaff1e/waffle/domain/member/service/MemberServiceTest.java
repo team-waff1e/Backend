@@ -56,12 +56,18 @@ class MemberServiceTest {
 
     @Test
     void followTest(){
+        memberService.follow(2L);
+        memberService.follow(3L);
         memberService.follow(8L);
 
         List<Follow> list = memberService.readFollowById(5L);
+//        for(Follow f : list) System.out.println(f);
+        Assertions.assertThat(list.size()).isEqualTo(3);
+        memberService.unfollow(5L,8L);
+        list = memberService.readFollowById(5L);
+//        for(Follow f : list) System.out.println(f);
 
-        for(Follow f : list) System.out.println(f);
 
-        Assertions.assertThat(list.size()).isEqualTo(1);
+        Assertions.assertThat(list.size()).isEqualTo(2);
     }
 }
