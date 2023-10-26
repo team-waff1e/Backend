@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.waffle.dto.response;
 
-import io.github.teamwaff1e.waffle.global.dto.ResponseDto;
+import io.github.teamwaff1e.waffle.global.dto.response.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
