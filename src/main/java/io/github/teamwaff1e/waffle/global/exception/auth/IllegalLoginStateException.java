@@ -6,8 +6,8 @@ public class IllegalLoginStateException extends IllegalStateException { // todo:
         super();
     }
 
-    public IllegalLoginStateException(String s) {
-        super(s);
+    public IllegalLoginStateException(String message) {
+        super(message);
     }
 
     public IllegalLoginStateException(String message, Throwable cause) {
