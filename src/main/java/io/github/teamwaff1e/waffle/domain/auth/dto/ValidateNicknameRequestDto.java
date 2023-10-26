@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.auth.dto;
 
-import io.github.teamwaff1e.waffle.global.dto.RequestDto;
+import io.github.teamwaff1e.waffle.global.dto.request.RequestDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
