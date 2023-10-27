@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.auth.controller.argumentresolver;
+package io.github.teamwaff1e.waffle.global.argumentresolver;
 
 import io.github.teamwaff1e.waffle.domain.auth.constant.AuthConstant;
 import io.github.teamwaff1e.waffle.domain.auth.vo.AuthVo;

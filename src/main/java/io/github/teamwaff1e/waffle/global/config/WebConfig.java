@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.global.config;
 
-import io.github.teamwaff1e.waffle.domain.auth.controller.argumentresolver.LoginAuthVoArgumentResolver;
+import io.github.teamwaff1e.waffle.global.argumentresolver.LoginAuthVoArgumentResolver;
 import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

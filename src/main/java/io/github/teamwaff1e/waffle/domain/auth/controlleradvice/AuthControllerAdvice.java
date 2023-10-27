@@ -4,7 +4,7 @@ import io.github.teamwaff1e.waffle.domain.auth.controller.AuthController;
 import io.github.teamwaff1e.waffle.global.dto.response.ExceptionResponseDto;
 import io.github.teamwaff1e.waffle.global.exception.auth.IllegalLoginStateException;
 import io.github.teamwaff1e.waffle.global.exception.auth.LoginFailureException;
-import io.github.teamwaff1e.waffle.global.exception.ErrorCode;
+import io.github.teamwaff1e.waffle.global.exception.code.ErrorCode;
 import io.github.teamwaff1e.waffle.global.exception.auth.MemberEmailAlreadyExistsException;
 import io.github.teamwaff1e.waffle.global.exception.auth.MemberNicknameAlreadyExistsException;
 import org.springframework.http.HttpStatus;

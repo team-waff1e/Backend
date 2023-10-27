@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.global.dto.response;
 
-import io.github.teamwaff1e.waffle.global.exception.ErrorCode;
+import io.github.teamwaff1e.waffle.global.exception.code.ErrorCode;
 import lombok.Getter;
 
 @Getter
