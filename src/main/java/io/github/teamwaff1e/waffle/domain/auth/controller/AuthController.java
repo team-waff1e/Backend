@@ -5,6 +5,7 @@ import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateEmailRequestDto;
 import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateNicknameRequestDto;
 import io.github.teamwaff1e.waffle.domain.auth.constant.AuthConstant;
 import io.github.teamwaff1e.waffle.domain.auth.dto.request.LoginRequestDto;
+import io.github.teamwaff1e.waffle.global.annotation.Login;
 import io.github.teamwaff1e.waffle.global.exception.auth.IllegalLoginStateException;
 import io.github.teamwaff1e.waffle.domain.auth.service.AuthService;
 import io.github.teamwaff1e.waffle.domain.auth.vo.AuthVo;
@@ -46,8 +47,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(HttpServletRequest request, @Validated @RequestBody LoginRequestDto loginRequestDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public void login(HttpServletRequest request, @Validated @RequestBody LoginRequestDto loginRequestDto,
+                      @Login AuthVo loginAuthVo) {
+
         // todo: decrypt password
+
+        if (loginAuthVo != null) {
+            return; // todo: return null or throw exception
+        }
 
         AuthVo authVo = authService.login(loginRequestDto);
 
