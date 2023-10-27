@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -49,17 +48,15 @@ public class MemberDao implements CrudDao<Member, Long> {
         entityManager.remove(member);
     }
 
-    public boolean existsByNickname(String nickname) {
-        List<Member> members = entityManager.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
+    public List<Member> findByNickname(String nickname) {
+        return entityManager.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
                 .setParameter("nickname", nickname)
                 .getResultList();
-        return members.stream().findAny().isPresent();
     }
 
-    public boolean existsByEmail(String email) {
-        List<Member> members = entityManager.createQuery("select m from Member m where m.email = :email", Member.class)
+    public List<Member> findByEmail(String email) {
+        return entityManager.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email)
                 .getResultList();
-        return members.stream().findAny().isPresent();
     }
 }

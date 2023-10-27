@@ -20,11 +20,13 @@ public class AuthRepository {
     }
 
     public boolean existsByNickname(String nickname) {
-        return memberDao.existsByNickname(nickname);
+        List<Member> members = memberDao.findByNickname(nickname);
+        return members.stream().findAny().isPresent();
     }
 
     public boolean existsByEmail(String email) {
-        return memberDao.existsByEmail(email);
+        List<Member> members = memberDao.findByEmail(email);
+        return members.stream().findAny().isPresent();
     }
 
     @Transactional(readOnly = true)
