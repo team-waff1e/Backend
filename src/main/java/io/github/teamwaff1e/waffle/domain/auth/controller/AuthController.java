@@ -1,5 +1,8 @@
 package io.github.teamwaff1e.waffle.domain.auth.controller;
 
+import io.github.teamwaff1e.waffle.domain.auth.dto.SignupRequestDto;
+import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateEmailRequestDto;
+import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateNicknameRequestDto;
 import io.github.teamwaff1e.waffle.domain.auth.constant.AuthConstant;
 import io.github.teamwaff1e.waffle.domain.auth.dto.request.LoginRequestDto;
 import io.github.teamwaff1e.waffle.global.annotation.Login;
@@ -24,10 +27,30 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void signUp(@RequestBody SignupRequestDto signupRequestDto) {
+        authService.signUp(signupRequestDto);
+    }
+
+    @PostMapping("/signup/nickname")
+    @ResponseStatus(HttpStatus.OK)
+    public void validateNickname(@RequestBody ValidateNicknameRequestDto validateNicknameRequestDto) {
+        authService.validateNickname(validateNicknameRequestDto.getNickname());
+    }
+
+    @PostMapping("/signup/email")
+    @ResponseStatus(HttpStatus.OK)
+    public void validateEmail(@RequestBody ValidateEmailRequestDto validateEmailRequestDto) {
+        authService.validateEmail(validateEmailRequestDto.getEmail());
+
+    }
+
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public void login(HttpServletRequest request, @Validated @RequestBody LoginRequestDto loginRequestDto,
                       @Login AuthVo loginAuthVo) {
+
         // todo: decrypt password
 
         if (loginAuthVo != null) {

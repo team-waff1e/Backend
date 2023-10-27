@@ -15,6 +15,22 @@ public class AuthRepository {
 
     private final MemberDao memberDao;
 
+    public Member save(Member member) {
+        return memberDao.save(member);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByNickname(String nickname) {
+        List<Member> members = memberDao.findAllByNickname(nickname);
+        return members.stream().findAny().isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(String email) {
+        List<Member> members = memberDao.findAllByEmail(email);
+        return members.stream().findAny().isPresent();
+    }
+
     @Transactional(readOnly = true)
     public Optional<Member> findValidMember(String email, String pwd) {
         List<Member> members = memberDao.findAllByEmail(email);
@@ -23,5 +39,4 @@ public class AuthRepository {
                 .filter(member -> member.getPwd().equals(pwd))
                 .findAny();
     }
-
 }
