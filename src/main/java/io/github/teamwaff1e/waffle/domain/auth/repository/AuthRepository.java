@@ -19,13 +19,15 @@ public class AuthRepository {
         return memberDao.save(member);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsByNickname(String nickname) {
-        List<Member> members = memberDao.findByNickname(nickname);
+        List<Member> members = memberDao.findAllByNickname(nickname);
         return members.stream().findAny().isPresent();
     }
 
+    @Transactional(readOnly = true)
     public boolean existsByEmail(String email) {
-        List<Member> members = memberDao.findByEmail(email);
+        List<Member> members = memberDao.findAllByEmail(email);
         return members.stream().findAny().isPresent();
     }
 

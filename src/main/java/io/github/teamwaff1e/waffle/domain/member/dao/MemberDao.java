@@ -37,6 +37,13 @@ public class MemberDao implements CrudDao<Member, Long> {
                 .getResultList();
     }
 
+    @Transactional(readOnly = true)
+    public List<Member> findAllByNickname(String nickname) {
+        return entityManager.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
+                .setParameter("nickname", nickname)
+                .getResultList();
+    }
+
     public Member updateById(Member member, String nickname) {
         member.updateNickname(nickname);
         return member;
@@ -48,15 +55,4 @@ public class MemberDao implements CrudDao<Member, Long> {
         entityManager.remove(member);
     }
 
-    public List<Member> findByNickname(String nickname) {
-        return entityManager.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
-                .setParameter("nickname", nickname)
-                .getResultList();
-    }
-
-    public List<Member> findByEmail(String email) {
-        return entityManager.createQuery("select m from Member m where m.email = :email", Member.class)
-                .setParameter("email", email)
-                .getResultList();
-    }
 }
