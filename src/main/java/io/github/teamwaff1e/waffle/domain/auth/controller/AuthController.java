@@ -24,6 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public void login(HttpServletRequest request,
                                         @Validated @RequestBody LoginRequestDto loginRequestDto) {
         // todo: decrypt password
