@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.waffle.config;
+package io.github.teamwaff1e.waffle.global.config.waffle;
 
 import io.github.teamwaff1e.waffle.domain.waffle.dto.converter.WaffleToResponseConverter;
 import org.springframework.context.annotation.Bean;
