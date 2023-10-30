@@ -1,6 +1,6 @@
 package io.github.teamwaff1e.waffle.global.argumentresolver;
 
-import io.github.teamwaff1e.waffle.domain.auth.constant.AuthConstant;
+import io.github.teamwaff1e.waffle.global.constant.auth.AuthConstant;
 import io.github.teamwaff1e.waffle.domain.auth.vo.AuthVo;
 import io.github.teamwaff1e.waffle.global.annotation.Login;
 import jakarta.servlet.http.HttpServletRequest;

@@ -3,7 +3,7 @@ package io.github.teamwaff1e.waffle.domain.auth.controller;
 import io.github.teamwaff1e.waffle.domain.auth.dto.SignupRequestDto;
 import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateEmailRequestDto;
 import io.github.teamwaff1e.waffle.domain.auth.dto.ValidateNicknameRequestDto;
-import io.github.teamwaff1e.waffle.domain.auth.constant.AuthConstant;
+import io.github.teamwaff1e.waffle.global.constant.auth.AuthConstant;
 import io.github.teamwaff1e.waffle.domain.auth.dto.request.LoginRequestDto;
 import io.github.teamwaff1e.waffle.global.annotation.Login;
 import io.github.teamwaff1e.waffle.global.exception.auth.IllegalLoginStateException;

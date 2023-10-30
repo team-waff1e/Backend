@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.auth.constant;
+package io.github.teamwaff1e.waffle.global.constant.auth;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
