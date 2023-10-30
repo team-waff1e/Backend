@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.comment.config;
+package io.github.teamwaff1e.waffle.global.config.comment;
 
 import io.github.teamwaff1e.waffle.domain.comment.dto.converter.CommentToResponseConverter;
 import org.springframework.context.annotation.Bean;
