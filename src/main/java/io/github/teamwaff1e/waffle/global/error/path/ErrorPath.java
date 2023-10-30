@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.global.exception.path;
+package io.github.teamwaff1e.waffle.global.error.path;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package io.github.teamwaff1e.waffle.global.interceptor;
 
 import io.github.teamwaff1e.waffle.global.constant.auth.AuthConstant;
-import io.github.teamwaff1e.waffle.global.exception.path.ErrorPath;
+import io.github.teamwaff1e.waffle.global.error.path.ErrorPath;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

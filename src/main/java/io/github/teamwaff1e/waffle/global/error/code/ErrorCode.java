@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.global.exception.code;
+package io.github.teamwaff1e.waffle.global.error.code;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

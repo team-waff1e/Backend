@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.global.exception.controller;
+package io.github.teamwaff1e.waffle.global.error.controller;
 
 import io.github.teamwaff1e.waffle.global.exception.auth.WAuthenticationException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/errors")
 public class ErrorController {
 
-    @RequestMapping(value = "/unauthenticated")
+    @RequestMapping("/unauthenticated")
     public void unauthenticatedRequest(HttpServletRequest request, HttpServletResponse response) {
         throw new WAuthenticationException();
     }
