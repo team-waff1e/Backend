@@ -1,5 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.waffle.service;
 
+import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
@@ -28,6 +29,11 @@ public class WaffleService {
         return converter.convert(waffle);
     }
 
+    public WaffleResponseDto readWaffle(Long waffleId) {
+        Waffle waffle = waffleRepository.find(waffleId);
+        return converter.convert(waffle);
+    }
+
     public WaffleResponseDto updateWaffle(UpdateWaffleRequestDto updateWaffleRequestDto) {
         Waffle waffle = waffleRepository.update(updateWaffleRequestDto);
         return converter.convert(waffle);
@@ -37,18 +43,21 @@ public class WaffleService {
         waffleRepository.delete(waffleId);
     }
 
-    public WaffleResponseDto likeWaffle(Long waffleId) {
-        Waffle waffle = waffleRepository.like(waffleId);
+    public WaffleResponseDto likeWaffle(LikesRequestDto likesRequestDto) {
+        if(waffleRepository.isLiked(likesRequestDto)) {
+            waffleRepository.unlike(likesRequestDto);
+            // TODO return
+        }
+        Waffle waffle = waffleRepository.like(likesRequestDto);
         return converter.convert(waffle);
     }
 
-    public WaffleResponseDto unlikeWaffle(Long waffleId) {
-        Waffle waffle = waffleRepository.unlike(waffleId);
-        return converter.convert(waffle);
-    }
-
-    public WaffleResponseDto readWaffle(Long waffleId) {
-        Waffle waffle = waffleRepository.find(waffleId);
+    public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {
+        if(!waffleRepository.isLiked(likesRequestDto)) {
+            waffleRepository.like(likesRequestDto);
+            // TODO return
+        }
+        Waffle waffle = waffleRepository.unlike(likesRequestDto);
         return converter.convert(waffle);
     }
 }
