@@ -1,4 +1,4 @@
-package io.github.teamwaff1e.waffle.domain.member.config;
+package io.github.teamwaff1e.waffle.global.config.member;
 
 
 import io.github.teamwaff1e.waffle.domain.member.dto.converter.MemberToResponseConverter;

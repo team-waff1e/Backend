@@ -1,14 +1,13 @@
 package io.github.teamwaff1e.waffle.domain.member.dao;
 
-import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.global.dao.CrudDao;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,14 +24,28 @@ public class MemberDao implements CrudDao<Member, Long> {
     }
 
     @Override
-    public Optional<Member> findById(Long id) { // todo: throw exception?
+    @Transactional(readOnly = true)
+    public Optional<Member> findById(Long id) {
         Member member = entityManager.find(Member.class, id);
         return Optional.ofNullable(member);
     }
 
+    @Transactional(readOnly = true)
+    public List<Member> findAllByEmail(String email) {
+        return entityManager.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email", email)
+                .getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Member> findAllByNickname(String nickname) {
+        return entityManager.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
+                .setParameter("nickname", nickname)
+                .getResultList();
+    }
+
     public Member updateById(Member member, String nickname) {
         member.updateNickname(nickname);
-//        entityManager.merge(member);
         return member;
     }
 
@@ -41,6 +54,5 @@ public class MemberDao implements CrudDao<Member, Long> {
     public void delete(Member member) {
         entityManager.remove(member);
     }
-
 
 }
