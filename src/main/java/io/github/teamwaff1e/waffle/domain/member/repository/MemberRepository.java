@@ -1,5 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.member.repository;
 
+import io.github.teamwaff1e.waffle.domain.member.dao.FollowDao;
 import io.github.teamwaff1e.waffle.domain.member.dao.MemberDao;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
@@ -16,6 +17,7 @@ import java.util.List;
 public class MemberRepository {
 
     private final MemberDao memberDao;
+    private final FollowDao followDao;
 
     public Member save(Member member) {
         return memberDao.save(member);
@@ -38,13 +40,13 @@ public class MemberRepository {
     }
 
     public void follow(Follow follow){
-        memberDao.follow(follow);
+        followDao.follow(follow);
     }
     public void unfollow(Long memberId,Long followingId){
-        memberDao.unfollow(memberId,followingId);
+        followDao.unfollow(memberId,followingId);
     }
     public List<Follow> ReadFollow(Long memberId){
 
-        return memberDao.findFollowById(memberId);
+        return followDao.findFollowById(memberId);
     }
 }
