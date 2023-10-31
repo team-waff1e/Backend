@@ -3,12 +3,15 @@ package io.github.teamwaff1e.waffle.domain.member.service;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.CreateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.request.UpdateMemberRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dto.response.MemberResponseDto;
+import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,7 +46,26 @@ public class MemberService {
 
     public boolean deleteMember(Long memberId){
         memberRepository.delete(memberId);
-
+        // todo : 성공 및 실패 여부에 따른 분기 처리
         return true;
+    }
+
+    public boolean follow(Long followingId){
+        Follow follow = Follow.builder()
+                .memberId(5L)           // todo :: 임시 키 값.
+                .followingId(followingId)
+                .build();
+        memberRepository.follow(follow);
+        // todo : 성공 및 실패 여부에 따른 분기 처리
+        return true;
+    }
+    public boolean unfollow(Long memberId,Long followingId){
+        memberRepository.unfollow(memberId,followingId);
+        // todo : 성공 및 실패 여부에 따른 분기 처리
+        return true;
+    }
+
+    public List<Follow> readFollowById(Long followingId){
+        return memberRepository.ReadFollow(followingId);
     }
 }
