@@ -19,9 +19,7 @@ public class FollowDao {
     private final EntityManager entityManager;
 
 
-    public void unfollow(Follow follow){
-        entityManager.remove(follow);
-    }
+    public void unfollow(Follow follow){entityManager.remove(follow); }
     public void follow(Follow follow){
         entityManager.persist(follow);
     }

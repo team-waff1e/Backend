@@ -27,7 +27,7 @@ public class Follow {
 
 
     @Builder
-    protected Follow(long memberId,long followingId) {
+    protected Follow(Long memberId,Long followingId) {
         this.followingId = followingId;
         this.memberId = memberId;
     }
