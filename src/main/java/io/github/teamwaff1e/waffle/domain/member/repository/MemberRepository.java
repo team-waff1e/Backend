@@ -43,10 +43,11 @@ public class MemberRepository {
         followDao.follow(follow);
     }
     public void unfollow(Long memberId,Long followingId){
-        followDao.unfollow(memberId,followingId);
+        Follow follw = followDao.findFollowById(memberId,followingId);
+        followDao.unfollow(follw);
     }
     public List<Follow> ReadFollow(Long memberId){
 
-        return followDao.findFollowById(memberId);
+        return followDao.findFollowListById(memberId);
     }
 }

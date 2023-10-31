@@ -19,22 +19,21 @@ public class FollowDao {
     private final EntityManager entityManager;
 
 
-    public void unfollow(Long memberId, Long followingId){
-
-        List<Follow> list = entityManager.createQuery("select f from Follow as f where f.memberId=:id and f.followingId=:followingId",Follow.class)
-                .setParameter("id" , memberId)
-                .setParameter("followingId",followingId)
-                .getResultList();
-        System.out.println(list.get(0));
-        entityManager.remove(list.get(0));
+    public void unfollow(Follow follow){
+        entityManager.remove(follow);
     }
     public void follow(Follow follow){
         entityManager.persist(follow);
     }
 
-    public List<Follow> findFollowById(Long memberId){
+    public List<Follow> findFollowListById(Long memberId){
         return entityManager.createQuery("select f from Follow as f where f.memberId=:id",Follow.class)
                 .setParameter("id" , memberId)
                 .getResultList();
+    }
+    public Follow findFollowById(Long memberId, Long followingId){
+        return entityManager.createQuery("select f from Follow as f where f.memberId=:id",Follow.class)
+                .setParameter("id" , memberId)
+                .getResultList().get(0);
     }
 }
