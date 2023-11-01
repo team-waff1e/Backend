@@ -60,11 +60,11 @@ class MemberServiceTest {
         memberService.follow(3L);
         memberService.follow(8L);
 
-        List<Follow> list = memberService.readFollowById(5L);
+        List<Follow> list = memberService.readFollowById(1L);
 //        for(Follow f : list) System.out.println(f);
         Assertions.assertThat(list.size()).isEqualTo(3);
-        memberService.unfollow(5L,8L);
-        list = memberService.readFollowById(5L);
+        memberService.unfollow(8L);
+        list = memberService.readFollowById(1L);
 //        for(Follow f : list) System.out.println(f);
 
 

@@ -42,9 +42,7 @@ public class MemberController {
                 return map;
             }));
         }
-        System.out.println(22222);
         return ResponseEntity.ok(memberService.createMember(memberRequestDto));
-//        return memberService.createMember(memberRequestDto);
     }
 
     @GetMapping("/{memberId}")
@@ -62,8 +60,18 @@ public class MemberController {
 
     @PatchMapping()
     @ResponseStatus(HttpStatus.OK)
-    public MemberResponseDto updateMember(@Validated @ModelAttribute UpdateMemberRequestDto memberRequestDto) {
-        return memberService.updateMember(1L,memberRequestDto); //Todo : 임시 Id 변경해야 함
+    public ResponseEntity updateMember(@Validated @ModelAttribute UpdateMemberRequestDto memberRequestDto,
+                                          BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().stream().map(v->{
+                Map<String,String> map = new HashMap<>();
+                map.put("errorCode",v.getCode());
+                map.put("message",v.getDefaultMessage());
+                return map;
+            }));
+        }
+        return ResponseEntity.ok(memberService.updateMember(1L,memberRequestDto));//Todo : 임시 Id 변경해야 함
+
     }
 
     @DeleteMapping()
@@ -74,15 +82,34 @@ public class MemberController {
 
     @PostMapping("/follow")
     @ResponseStatus(HttpStatus.OK)
-    public void follow (@Validated @ModelAttribute FollowRequestDto followRequestDto){
+    public ResponseEntity follow (@Validated @ModelAttribute FollowRequestDto followRequestDto,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().stream().map(v->{
+                Map<String,String> map = new HashMap<>();
+                map.put("errorCode",v.getCode());
+                map.put("message",v.getDefaultMessage());
+                return map;
+            }));
+        }
+
+        return ResponseEntity.ok(memberService.follow(followRequestDto.getFollowingId()));
     }
     @PostMapping("/unfollow")
     @ResponseStatus(HttpStatus.OK)
-    public void unfollow (@Validated @ModelAttribute FollowRequestDto followRequestDto){
+    public ResponseEntity unfollow (@Validated @ModelAttribute FollowRequestDto followRequestDto,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().stream().map(v->{
+                Map<String,String> map = new HashMap<>();
+                map.put("errorCode",v.getCode());
+                map.put("message",v.getDefaultMessage());
+                return map;
+            }));
+        }
+        return ResponseEntity.ok(memberService.unfollow(followRequestDto.getFollowingId()));
     }
-    @GetMapping("/follow/{memberId}")
+    @GetMapping("/follow")
     @ResponseStatus(HttpStatus.OK)
-    public void readFollowById (@NotEmpty @Positive @PathVariable Long memberd){
-
+    public ResponseEntity readFollowById (){
+        return ResponseEntity.ok(memberService.readFollowById(1L));
     }
 }
