@@ -3,11 +3,14 @@ package io.github.teamwaff1e.waffle.domain.waffle.repository;
 import io.github.teamwaff1e.waffle.domain.likes.dao.LikesDao;
 import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.dao.MemberDao;
+import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.waffle.dao.WaffleDao;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +21,6 @@ import java.util.List;
 public class WaffleRepository {
 
     private final WaffleDao waffleDao;
-    //    private final MemberDao memberDao;  // TODO member waffle 분리
     private final LikesDao likesDao;
     
     public Waffle save(Waffle waffle) {
@@ -62,5 +64,10 @@ public class WaffleRepository {
 
     public List<Waffle> findAll() {
         return waffleDao.findAll();
+    }
+
+    public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
+
+        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
     }
 }
