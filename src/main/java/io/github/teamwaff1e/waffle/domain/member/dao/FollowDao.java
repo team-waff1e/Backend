@@ -21,7 +21,12 @@ public class FollowDao {
 
     public void unfollow(Follow follow){entityManager.remove(follow); }
     public void follow(Follow follow){
-        entityManager.persist(follow);
+        try {
+            entityManager.persist(follow);
+        }
+        catch (Error err){
+            System.out.println("err " + err);
+        }
     }
 
     public List<Follow> findFollowListById(Long memberId){

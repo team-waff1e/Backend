@@ -52,15 +52,15 @@ public class MemberService {
 
     public boolean follow(Long followingId){
         Follow follow = Follow.builder()
-                .memberId(5L)           // todo :: 임시 키 값.
+                .memberId(1L)           // todo :: 임시 키 값.
                 .followingId(followingId)
                 .build();
         memberRepository.follow(follow);
         // todo : 성공 및 실패 여부에 따른 분기 처리
         return true;
     }
-    public boolean unfollow(Long memberId,Long followingId){
-        memberRepository.unfollow(memberId,followingId);
+    public boolean unfollow(Long followingId){
+        memberRepository.unfollow(1L,followingId);// todo :: 임시 키 값.
         // todo : 성공 및 실패 여부에 따른 분기 처리
         return true;
     }
