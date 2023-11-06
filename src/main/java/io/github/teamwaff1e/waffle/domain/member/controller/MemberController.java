@@ -48,7 +48,6 @@ public class MemberController {
     @GetMapping("/{memberId}")
     @ResponseStatus(HttpStatus.OK)
     public MemberResponseDto readMemberById(@PathVariable Long memberId) {
-        System.out.println("!@#DAS");
         return memberService.readMember(memberId);
     }
 
