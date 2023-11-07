@@ -27,7 +27,7 @@ public class Waffle {
 
 
     @Builder
-    protected Waffle(Long id, String content, Long likes_count, Long memberId, Long comment_count) {
+    protected Waffle(Long id, String content, Long likes_count, Long comment_count, Long memberId) {
         this.id = id;
         this.content = content;
         this.likes_count = likes_count;
