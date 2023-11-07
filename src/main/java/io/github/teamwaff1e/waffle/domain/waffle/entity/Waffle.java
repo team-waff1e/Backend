@@ -18,8 +18,8 @@ public class Waffle {
     private String content;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Long likes;
-    private Long comments;
+    private Long likes_count;
+    private Long comment_count;
 
     //    @ManyToOne  // TODO auth 관련 처리 시작시 Member 객체로 교체
     //    @JoinColumn(name = "member_id")
@@ -27,11 +27,11 @@ public class Waffle {
 
 
     @Builder
-    protected Waffle(Long id, String content, Long likes, Long memberId, Long comments) {
+    protected Waffle(Long id, String content, Long likes_count, Long memberId, Long comment_count) {
         this.id = id;
         this.content = content;
-        this.likes = likes;
-        this.comments = comments;
+        this.likes_count = likes_count;
+        this.comment_count = comment_count;
         this.memberId = memberId;
 
     }
@@ -39,7 +39,7 @@ public class Waffle {
     @PrePersist
     public void prePersist() {
         updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-        likes = comments = 0L;
+        likes_count = comment_count = 0L;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -60,13 +60,13 @@ public class Waffle {
     }
 
     public void like() {  // TODO auth -> 동일인 like, unlilke 1회성 여부 처리 로직 추가하기
-        if(this.likes+1 < Long.MAX_VALUE) this.likes++;
+        if(this.likes_count+1 < Long.MAX_VALUE) this.likes_count++;
     }
 
     public void unlike() {
-        if(this.likes > 0L) this.likes--;
+        if(this.likes_count > 0L) this.likes_count--;
     }
 
-    public void addComment() { if(this.comments+1 < Long.MAX_VALUE) this.comments++; }
-    public void deleteComment() { if(this.comments > 0L) this.comments--; }
+    public void addComment() { if(this.comment_count+1 < Long.MAX_VALUE) this.comment_count++; }
+    public void deleteComment() { if(this.comment_count > 0L) this.comment_count--; }
 }

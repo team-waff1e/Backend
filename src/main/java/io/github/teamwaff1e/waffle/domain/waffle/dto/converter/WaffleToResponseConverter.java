@@ -12,7 +12,8 @@ public class WaffleToResponseConverter implements DtoConverter<Waffle, WaffleRes
                 .id(waffle.getId())
                 .memberId(waffle.getMemberId())
                 .content(waffle.getContent())
-                .likes(waffle.getLikes())
+                .likes_count(waffle.getLikes_count())
+                .comment_count(waffle.getComment_count())
                 .createdAt(waffle.getCreatedAt())
                 .updatedAt(waffle.getUpdatedAt())
                 .build();
