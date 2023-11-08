@@ -51,14 +51,35 @@ public class Waffle {
     }
 
     public void like() {
-        if (this.likesCount + 1L < Long.MAX_VALUE) {
-            this.likesCount++;
+        if (likesCount + 1L == Long.MAX_VALUE) {
+            throw new IllegalStateException();
         }
+
+        likesCount++;
     }
 
     public void unlike() {
-        if (this.likesCount > 0L) {
-            this.likesCount--;
+        if (likesCount <= 0L) {
+            throw new IllegalStateException();
+
         }
+
+        likesCount--;
+    }
+
+    public void increaseCommentCount() {
+        if (commentCount + 1L == Long.MAX_VALUE) {
+            throw new IllegalStateException();
+        }
+
+        commentCount++;
+    }
+
+    public void decreaseCommentCount() {
+        if (commentCount <= 0L) {
+            throw new IllegalStateException();
+        }
+
+        commentCount--;
     }
 }

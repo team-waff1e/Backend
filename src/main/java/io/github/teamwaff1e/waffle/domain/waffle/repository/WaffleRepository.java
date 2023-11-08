@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional
@@ -52,5 +51,19 @@ public class WaffleRepository {
 
     public List<Waffle> findAll() {
         return waffleDao.findAll();
+    }
+
+    public Waffle increaseCommentCount(Long waffleId) {
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.increaseCommentCount();
+
+        return waffle;
+    }
+
+    public Waffle decreaseCommentCount(Long waffleId) {
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.decreaseCommentCount();
+
+        return waffle;
     }
 }

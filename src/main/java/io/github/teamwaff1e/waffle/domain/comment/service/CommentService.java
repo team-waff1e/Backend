@@ -40,6 +40,7 @@ public class CommentService {
                 .build();
 
         Comment comment = commentRepository.save(newComment);
+        waffleRepository.increaseCommentCount(waffleId);
 
         return converter.convert(comment);
     }
@@ -68,5 +69,6 @@ public class CommentService {
 
     public void deleteComment(Long waffleId, Long commentId) {
         commentRepository.delete(waffleId, commentId);
+        waffleRepository.decreaseCommentCount(waffleId);
     }
 }
