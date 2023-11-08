@@ -16,6 +16,6 @@ public class CommentResponseDto implements ResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private OwnerResponseDto ownerResponseDto;
+    private OwnerResponseDto owner;
 
 }

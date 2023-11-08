@@ -24,7 +24,7 @@ public class CommentToResponseConverter implements DtoConverter<Comment, Comment
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .updatedAt(comment.getUpdatedAt())
-                .ownerResponseDto(ownerResponseDto)
+                .owner(ownerResponseDto)
                 .build();
     }
 }
