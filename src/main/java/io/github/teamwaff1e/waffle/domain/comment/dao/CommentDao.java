@@ -31,6 +31,7 @@ public class CommentDao implements CrudDao<Comment, Long> {
 
     public Comment update(Comment comment, String content) { // todo: 변경에 취약해지는 문제 발생
         comment.updateComment(content);
+        entityManager.flush(); // todo
         return comment;
     }
 

@@ -11,6 +11,7 @@ import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
 import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import io.github.teamwaff1e.waffle.domain.waffle.repository.WaffleRepository;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
+import io.github.teamwaff1e.waffle.global.exception.auth.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,9 +50,20 @@ public class CommentService {
         return converter.convert(comment);
     }
 
-    public CommentResponseDto updateComment(UpdateCommentRequestDto commentRequestDto) {
-        Comment comment = commentRepository.update(commentRequestDto);
-        return converter.convert(comment);
+    public CommentResponseDto updateComment(AuthVo authVo, Long waffleId, Long commentId,
+                                            UpdateCommentRequestDto commentRequestDto) {
+        // todo: waffleId, commentId validation
+
+        Comment comment = commentRepository.find(waffleId, commentId);
+        Member commentMember = comment.getMember();
+        Member loginMember = memberRepository.find(authVo.getMemberId());
+
+        if (loginMember != commentMember) {
+            throw new UnauthorizedException(); // todo: error message
+        }
+
+        Comment updatedComment = commentRepository.update(waffleId, commentId, commentRequestDto);
+        return converter.convert(updatedComment);
     }
 
     public void deleteComment(Long waffleId, Long commentId) {
