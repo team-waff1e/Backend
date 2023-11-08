@@ -10,7 +10,7 @@ import lombok.Getter;
 public class CreateWaffleRequestDto implements RequestDto {
 
     private Long memberId;
-    @NotBlank
+    @NotBlank(message = "내용 입력이 없습니다.")
     private String content;
 
 }

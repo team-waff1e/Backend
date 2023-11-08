@@ -2,7 +2,6 @@ package io.github.teamwaff1e.waffle.domain.waffle.repository;
 
 import io.github.teamwaff1e.waffle.domain.likes.dao.LikesDao;
 import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
-import io.github.teamwaff1e.waffle.domain.member.dao.MemberDao;
 import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.waffle.dao.WaffleDao;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
@@ -14,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -52,8 +52,8 @@ public class WaffleRepository {
         return likesDao.findLikesById(likesRequestDto) != null;
     }
 
-    public Waffle update(UpdateWaffleRequestDto updateWaffleRequestDto) {
-        Waffle waffle = waffleDao.findById(updateWaffleRequestDto.getWaffleId()).orElseThrow(IllegalArgumentException::new);
+    public Waffle update(Long waffleId, UpdateWaffleRequestDto updateWaffleRequestDto) {
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.updateWaffleContent(updateWaffleRequestDto.getContent());
         return waffle;
     }
@@ -69,5 +69,13 @@ public class WaffleRepository {
     public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
 
         return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
+    }
+
+    public List<Waffle> findWaffleListByMemberId(Long waffleId) {
+        return waffleDao.findWaffleListByMemberId(waffleId);
+    }
+
+    public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
+        return waffleDao.findWaffleByWaffleIdAndMemberId(waffleId, memberId);
     }
 }

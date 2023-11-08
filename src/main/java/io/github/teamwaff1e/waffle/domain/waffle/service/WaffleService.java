@@ -2,7 +2,6 @@ package io.github.teamwaff1e.waffle.domain.waffle.service;
 
 import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
-import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.service.MemberService;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.response.GetWaffleListResponseDto;
 import io.github.teamwaff1e.waffle.domain.waffle.util.ScrollPaginationCollection;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -53,9 +53,14 @@ public class WaffleService {
         return GetWaffleListResponseDto.of(feedsCursor, waffleList.size());
     }
 
-    public WaffleResponseDto updateWaffle(UpdateWaffleRequestDto updateWaffleRequestDto) {
-        Waffle waffle = waffleRepository.update(updateWaffleRequestDto);
-        return converter.convert(waffle);
+    public WaffleResponseDto updateWaffle(Long waffleId, Long memberId, UpdateWaffleRequestDto updateWaffleRequestDto) throws IllegalAccessException {
+        Optional<Waffle> waffle = waffleRepository.findWaffleByWaffleIdAndMemberId(waffleId, memberId);
+        if(waffle.isPresent()) {
+            Waffle updatedWaffle = waffleRepository.update(waffleId, updateWaffleRequestDto);
+            return converter.convert(updatedWaffle);
+        } else throw new IllegalAccessException();
+        // TODO 자기게시물 아닌경우 예외처리
+
     }
 
     public void deleteWaffle(Long waffleId) {
