@@ -10,11 +10,11 @@ public class WaffleToResponseConverter implements DtoConverter<Waffle, WaffleRes
     public WaffleResponseDto convert(Waffle waffle) {
         return WaffleResponseDto.builder()
                 .id(waffle.getId())
-                .memberId(waffle.getMemberId())
                 .content(waffle.getContent())
-                .likes(waffle.getLikes())
+                .likesCount(waffle.getLikesCount())
                 .createdAt(waffle.getCreatedAt())
                 .updatedAt(waffle.getUpdatedAt())
+//                .owner()
                 .build();
     }
 }

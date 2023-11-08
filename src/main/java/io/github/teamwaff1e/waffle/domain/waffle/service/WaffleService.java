@@ -1,5 +1,7 @@
 package io.github.teamwaff1e.waffle.domain.waffle.service;
 
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
+import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
@@ -16,12 +18,17 @@ import org.springframework.stereotype.Service;
 public class WaffleService {
 
     private final WaffleRepository waffleRepository;
+    private final MemberRepository memberRepository;
+
     private final DtoConverter<Waffle, WaffleResponseDto> converter;
 
     public WaffleResponseDto createWaffle(CreateWaffleRequestDto createWaffleRequestDto) {
+
+//        Member member = memberRepository.find(authVo.getMemberId()); // todo
+
         Waffle newWaffle = Waffle.builder()
                 .content(createWaffleRequestDto.getContent())
-                .memberId(createWaffleRequestDto.getMemberId())
+//                .member(createWaffleRequestDto.getMemberId()) // todo
                 .build();
 
         Waffle waffle =  waffleRepository.save(newWaffle);
