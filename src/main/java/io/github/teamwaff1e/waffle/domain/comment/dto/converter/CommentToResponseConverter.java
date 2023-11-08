@@ -10,7 +10,7 @@ public class CommentToResponseConverter implements DtoConverter<Comment, Comment
     public CommentResponseDto convert(Comment comment) {
         return CommentResponseDto.builder()
                 .id(comment.getId())
-                .waffleId((comment.getWaffleId()))
+                .waffleId((comment.getWaffle().getId()))
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .updatedAt(comment.getUpdatedAt())
