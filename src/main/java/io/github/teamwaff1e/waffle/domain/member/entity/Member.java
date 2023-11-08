@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,8 +23,12 @@ public class Member {
     private String nickname;
     private String profileUrl;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Long followingCount;
+    private Long followerCount;
+    private Long waffleCount;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
     @Builder
@@ -38,15 +41,5 @@ public class Member {
 
     public void updateNickname(String nickname){
         this.nickname = nickname;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 }

@@ -1,12 +1,13 @@
 package io.github.teamwaff1e.waffle.domain.comment.entity;
 
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
+import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,43 +21,25 @@ public class Comment {
 
     private String content;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "waffle_id")
-    private Long waffleId; // todo
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "waffle_id")
+    private Waffle waffle;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "member_id")
-    private Long memberId; // todo
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Builder
-    protected Comment(String content, Long waffleId, Long memberId) {
+    protected Comment(String content, Member member, Waffle waffle) {
         this.content = content;
-        this.waffleId = waffleId;
-        this.memberId = memberId;
+        this.member = member;
+        this.waffle = waffle;
     }
 
     public void updateComment(String content) {
         this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt.toLocalDateTime();
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt.toLocalDateTime();
-    }
-
-    @PrePersist
-    public void prePersist() {
-        updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 }

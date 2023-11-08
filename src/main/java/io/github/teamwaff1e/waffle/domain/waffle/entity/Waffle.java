@@ -1,55 +1,42 @@
 package io.github.teamwaff1e.waffle.domain.waffle.entity;
 
+import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 외부에서의 생성을 열어 둘 필요 ..? x
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Waffle {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String content;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    private Long likes;  // TODO 엔티티로 분리?
 
-//    @ManyToOne  // TODO
-//    @JoinColumn(name = "member_id")
-    private Long memberId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String content;
+
+    private Long likesCount;
+    private Long commentCount;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Builder
-    protected Waffle(Long id, String content, Long likes, Long memberId) {
+    protected Waffle(Long id, String content, Long likesCount, Member member) {
         this.id = id;
         this.content = content;
-        this.likes = likes;
-        this.memberId = memberId;
+        this.likesCount = likesCount;
+        this.member = member;
 
-    }
-
-    @PrePersist
-    public void prePersist() {
-        updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-        likes = 0L;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt.toLocalDateTime();
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt.toLocalDateTime();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public void updateWaffleContent(String content) {
@@ -57,10 +44,14 @@ public class Waffle {
     }
 
     public void like() {
-        if(this.likes+1 < Long.MAX_VALUE) this.likes++;
+        if (this.likesCount + 1L < Long.MAX_VALUE) {
+            this.likesCount++;
+        }
     }
 
     public void unlike() {
-        if(this.likes > 0L) this.likes--;
+        if (this.likesCount > 0L) {
+            this.likesCount--;
+        }
     }
 }
