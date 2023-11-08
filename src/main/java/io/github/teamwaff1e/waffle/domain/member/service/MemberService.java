@@ -21,7 +21,7 @@ public class MemberService {
         Member newMember = Member.builder()
                 .name(memberRequestDto.getName())
                 .email(memberRequestDto.getEmail())
-                .pwd(memberRequestDto.getPassword())
+                .pwd(memberRequestDto.getPwd())
                 .nickname(memberRequestDto.getNickname())
                 .build();
 
