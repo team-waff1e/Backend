@@ -4,6 +4,7 @@ import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
 import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.service.MemberService;
+import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.response.GetWaffleListResponseDto;
 import io.github.teamwaff1e.waffle.domain.waffle.util.ScrollPaginationCollection;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
@@ -25,14 +26,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WaffleService {
 
-    private final WaffleRepository waffleRepository;
     private final MemberService memberService;
+
+    private final WaffleRepository waffleRepository;
+    private final MemberRepository memberRepository;
+
     private final DtoConverter<Waffle, WaffleResponseDto> converter;
 
     public WaffleResponseDto createWaffle(CreateWaffleRequestDto createWaffleRequestDto) {
+
+//        Member member = memberRepository.find(authVo.getMemberId()); // todo
+
         Waffle newWaffle = Waffle.builder()
                 .content(createWaffleRequestDto.getContent())
-                .memberId(createWaffleRequestDto.getMemberId())
+//                .member(createWaffleRequestDto.getMemberId()) // todo
                 .build();
 
         Waffle waffle =  waffleRepository.save(newWaffle);

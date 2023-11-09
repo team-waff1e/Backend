@@ -8,12 +8,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+@Entity
 public class Member {
 
     @Id
@@ -29,8 +32,15 @@ public class Member {
 
     private String profileUrl;
 
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Long followingCount;
+    private Long followerCount;
+    private Long waffleCount;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 
     @Builder
@@ -43,15 +53,5 @@ public class Member {
 
     public void updateNickname(String nickname){
         this.nickname = nickname;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        updatedAt = createdAt = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 }

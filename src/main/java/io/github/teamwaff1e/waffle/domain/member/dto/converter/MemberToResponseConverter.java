@@ -10,7 +10,6 @@ public class MemberToResponseConverter implements DtoConverter<Member, MemberRes
     public MemberResponseDto convert(Member member) {
         return MemberResponseDto.builder()
                 .id(member.getId())
-                .pwd(member.getPwd())
                 .name(member.getName())
                 .nickname(member.getNickname())
                 .email(member.getEmail())

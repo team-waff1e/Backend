@@ -25,8 +25,7 @@ public class CommentRepository {
         return commentDao.findById(commentId).orElseThrow(IllegalArgumentException::new);
     }
 
-    public Comment update(UpdateCommentRequestDto commentRequestDto) {
-        Long commentId = commentRequestDto.getCommentId();
+    public Comment update(Long waffleId, Long commentId, UpdateCommentRequestDto commentRequestDto) {
         Comment comment = commentDao.findById(commentId).orElseThrow(IllegalArgumentException::new);
         String content = commentRequestDto.getContent();
 

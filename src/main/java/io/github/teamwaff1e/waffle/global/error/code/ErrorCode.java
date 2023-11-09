@@ -15,7 +15,9 @@ public enum ErrorCode {
 
     NICKNAME_ALREADY_EXISTS(1122),
 
-    UNAUTHENTICATED(1115);
+    UNAUTHENTICATED(1115),
+
+    UNAUTHORIZED(1116);
 
 
     private final int code;
