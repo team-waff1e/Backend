@@ -90,7 +90,6 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
         query.setParameter("waffleId", waffleId);
         query.setParameter("memberId", memberId);
 
-
         return Optional.ofNullable(query.getSingleResult());
     }
 }

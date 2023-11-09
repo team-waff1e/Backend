@@ -13,8 +13,8 @@ public class WaffleResponseDto implements ResponseDto {
     private Long id;
     private Long memberId;
     private String content;
-    private Long likes_count;
-    private Long comment_count;
+    private Long likesCount;
+    private Long commentCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
