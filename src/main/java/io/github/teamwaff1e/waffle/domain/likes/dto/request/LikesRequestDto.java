@@ -1,16 +1,17 @@
-package io.github.teamwaff1e.waffle.domain.member.dto.request;
+package io.github.teamwaff1e.waffle.domain.likes.dto.request;
 
 import io.github.teamwaff1e.waffle.global.dto.request.RequestDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateMemberRequestDto implements RequestDto {
-  
+public class LikesRequestDto implements RequestDto {
+
     @NotBlank
-    private String nickname;
+    private Long memberId;
+
+    @NotBlank
+    private Long waffleId;
 }

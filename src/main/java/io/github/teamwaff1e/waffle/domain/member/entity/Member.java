@@ -1,6 +1,8 @@
 package io.github.teamwaff1e.waffle.domain.member.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,10 +23,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String email;
+
     private String pwd;
     private String name;
     private String nickname;
+
     private String profileUrl;
 
     private Long followingCount;
