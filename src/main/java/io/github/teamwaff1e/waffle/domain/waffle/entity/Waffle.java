@@ -38,10 +38,11 @@ public class Waffle {
     private Member member;
 
     @Builder
-    protected Waffle(Long id, String content, Long likesCount, Member member) {
+    protected Waffle(Long id, String content, Long likesCount, Long commentCount, Member member) {
         this.id = id;
         this.content = content;
         this.likesCount = likesCount;
+        this.commentCount = commentCount;
         this.member = member;
     }
 
@@ -53,16 +54,13 @@ public class Waffle {
         if (likesCount + 1L == Long.MAX_VALUE) {
             throw new IllegalStateException();
         }
-
         likesCount++;
     }
 
     public void unlike() {
         if (likesCount <= 0L) {
             throw new IllegalStateException();
-
         }
-
         likesCount--;
     }
 

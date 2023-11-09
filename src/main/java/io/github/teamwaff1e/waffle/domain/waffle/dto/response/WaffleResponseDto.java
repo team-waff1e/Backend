@@ -14,6 +14,7 @@ public class WaffleResponseDto implements ResponseDto {
     private Long id;
     private String content;
     private Long likesCount;
+    private Long commentCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private OwnerResponseDto owner;

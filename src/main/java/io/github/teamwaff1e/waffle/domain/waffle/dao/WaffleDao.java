@@ -50,8 +50,8 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
                 "ORDER BY w.id DESC ";
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
-        query.setParameter("id", lastWaffleIdx);
-        query.setParameter("member_id", follows);
+        query.setParameter("lastWaffleIdx", lastWaffleIdx);
+        query.setParameter("follows", follows);
 
         query.setFirstResult(pageRequest.getPageNumber() * pageRequest.getPageSize());
         query.setMaxResults(pageRequest.getPageSize());
@@ -63,11 +63,33 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
                 "AND w.memberId IN :follows";
 
         TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
-        countQuery.setParameter("id", lastWaffleIdx);
-        countQuery.setParameter("member_id", follows);
+        countQuery.setParameter("lastWaffleIdx", lastWaffleIdx);
+        countQuery.setParameter("follows", follows);
 
         Long totalCount = countQuery.getSingleResult();
 
         return new PageImpl<>(result, pageRequest, totalCount);
+    }
+
+    public List<Waffle> findWaffleListByMemberId(Long waffleId) {
+        String jpql = "SELECT w FROM Waffle w " +
+                "WHERE w.memberId = :waffleId";
+
+        TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
+        query.setParameter("waffleId", waffleId);
+
+        return query.getResultList();
+    }
+
+    public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
+        String jpql = "SELECT w FROM Waffle w " +
+                "WHERE w.id = :waffleId " +
+                "AND w.memberId = :memberId";
+
+        TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
+        query.setParameter("waffleId", waffleId);
+        query.setParameter("memberId", memberId);
+
+        return Optional.ofNullable(query.getSingleResult());
     }
 }

@@ -6,19 +6,19 @@ import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequest
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.response.GetWaffleListResponseDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.response.WaffleResponseDto;
-import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import io.github.teamwaff1e.waffle.domain.waffle.service.WaffleService;
-import io.github.teamwaff1e.waffle.domain.waffle.util.ScrollPaginationCollection;
 import io.github.teamwaff1e.waffle.global.annotation.Login;
 import io.github.teamwaff1e.waffle.global.exception.auth.IllegalLoginStateException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,12 +26,19 @@ import java.util.List;
 public class WaffleController {
     private final WaffleService waffleService;
 
-    // TODO responseDto
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public WaffleResponseDto createWaffle(@ModelAttribute CreateWaffleRequestDto createWaffleRequestDto, BindingResult bindingResult) {
-        return waffleService.createWaffle(createWaffleRequestDto);
+    public ResponseEntity createWaffle(@Login AuthVo authVo,@Validated @ModelAttribute CreateWaffleRequestDto createWaffleRequestDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().stream().map(v->{
+                Map<String,String> map = new HashMap<>();
+                map.put("errorCode",v.getCode());
+                map.put("message",v.getDefaultMessage());
+                return map;
+            }));
+        }
+        return ResponseEntity.ok(waffleService.createWaffle(createWaffleRequestDto));
     }
 
     @GetMapping("/{waffleId}")
@@ -52,7 +59,7 @@ public class WaffleController {
 
         if(authVo == null) {
             // TODO 로그인 여부 분기
-            throw new IllegalLoginStateException();
+            throw new IllegalLoginStateException();  // TODO 로그인 안한 경우 보여주기로 한 데이터 처리 api
         }
         // TODO isupdate 처리
 
@@ -63,8 +70,23 @@ public class WaffleController {
 
     @PatchMapping("/{waffleId}")
     @ResponseStatus(HttpStatus.OK)
-    public WaffleResponseDto updateWaffle(@ModelAttribute UpdateWaffleRequestDto updateWaffleRequestDto) {
-        return waffleService.updateWaffle(updateWaffleRequestDto);
+    public ResponseEntity updateWaffle(@Login AuthVo authVo, @PathVariable Long waffleId, @Validated @ModelAttribute UpdateWaffleRequestDto updateWaffleRequestDto, BindingResult bindingResult) throws IllegalAccessException {
+
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors().stream().map(v->{
+                Map<String,String> map = new HashMap<>();
+                map.put("errorCode",v.getCode());
+                map.put("message",v.getDefaultMessage());
+                return map;
+            }));
+        }
+
+        if(authVo == null) {
+            throw new IllegalLoginStateException();  // TODO loginpage로 가도록 예외처리
+        }
+        // TODO 자기게시물 아닌경우 예외처리
+        return ResponseEntity.ok(waffleService.updateWaffle(waffleId, authVo.getMemberId(), updateWaffleRequestDto));
+
     }
 
     @DeleteMapping("/{waffleId}")

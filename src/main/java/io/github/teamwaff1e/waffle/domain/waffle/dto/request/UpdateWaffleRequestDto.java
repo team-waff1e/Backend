@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UpdateWaffleRequestDto implements RequestDto {
 
-    private Long waffleId;
-    @NotBlank
+//    private Long waffleId;
+    @NotBlank(message = "내용 입력이 없습니다.")
     private String content;
 }
