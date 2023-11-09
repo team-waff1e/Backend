@@ -7,18 +7,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    LOGIN_FAILURE(1111), // todo
+    LOGIN_FAILURE(1111, "Login Fail"), // todo
 
-    LOGOUT_ILLEGAL_STATE(1112), // todo
+    LOGOUT_ILLEGAL_STATE(1112, ""), // todo
 
-    EMAIL_ALREADY_EXISTS(1121),
+    EMAIL_ALREADY_EXISTS(1121, ""),
 
-    NICKNAME_ALREADY_EXISTS(1122),
+    NICKNAME_ALREADY_EXISTS(1122, ""),
 
-    UNAUTHENTICATED(1115),
+    UNAUTHENTICATED(1115, "Unauthenticated"),
 
-    UNAUTHORIZED(1116);
+    UNAUTHORIZED(1116, "Unauthorized"),
 
+    INVALID_ARGUMENT(1117, "Invalid Argument");
 
     private final int code;
+    private final String message;
 }
