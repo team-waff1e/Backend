@@ -1,10 +1,16 @@
 package io.github.teamwaff1e.waffle.domain.waffle.repository;
 
+import io.github.teamwaff1e.waffle.domain.likes.dao.LikesDao;
+import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
+import io.github.teamwaff1e.waffle.domain.member.dao.MemberDao;
+import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.waffle.dao.WaffleDao;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.entity.Waffle;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,8 +21,7 @@ import java.util.List;
 public class WaffleRepository {
 
     private final WaffleDao waffleDao;
-//    private final MemberDao memberDao;  // TODO member waffle 분리
-
+    private final LikesDao likesDao;
     
     public Waffle save(Waffle waffle) {
         return waffleDao.save(waffle);
@@ -27,16 +32,24 @@ public class WaffleRepository {
         waffleDao.delete(waffle);
     }
 
-    public Waffle like(Long waffleId) {
-        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+    public Waffle like(LikesRequestDto likesRequestDto) {
+        Waffle waffle = waffleDao.findById(likesRequestDto.getWaffleId()).orElseThrow(IllegalArgumentException::new);
         waffle.like();
+
+        likesDao.like(likesRequestDto);
         return waffle;
     }
 
-    public Waffle unlike(Long waffleId) {
-        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+    public Waffle unlike(LikesRequestDto likesRequestDto) {
+        Waffle waffle = waffleDao.findById(likesRequestDto.getWaffleId()).orElseThrow(IllegalArgumentException::new);
         waffle.unlike();
+
+        likesDao.unlike(likesRequestDto);
         return waffle;
+    }
+
+    public boolean isLiked(LikesRequestDto likesRequestDto) {
+        return likesDao.findLikesById(likesRequestDto) != null;
     }
 
     public Waffle update(UpdateWaffleRequestDto updateWaffleRequestDto) {
@@ -65,5 +78,10 @@ public class WaffleRepository {
         waffle.decreaseCommentCount();
 
         return waffle;
+    }
+
+    public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
+
+        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
     }
 }

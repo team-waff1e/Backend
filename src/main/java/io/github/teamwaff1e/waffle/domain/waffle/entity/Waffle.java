@@ -43,7 +43,6 @@ public class Waffle {
         this.content = content;
         this.likesCount = likesCount;
         this.member = member;
-
     }
 
     public void updateWaffleContent(String content) {

@@ -18,12 +18,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                .order(1)
-                .addPathPatterns("/members**") // todo
-                .excludePathPatterns(
-                        "/auth**",
-                        "/members/{[0-9+]}" // todo
-                );
+//        registry.addInterceptor(new LoginInterceptor())
+//                .order(1)
+////                .addPathPatterns("/members**") // todo
+//                .excludePathPatterns(
+//                        "/auth**",
+//                        "/members/{[0-9+]}",
+//                        "/members**"// todo
+//
+//                );
     }
 }
