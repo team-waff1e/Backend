@@ -66,6 +66,20 @@ public class WaffleRepository {
         return waffleDao.findAll();
     }
 
+    public Waffle increaseCommentCount(Long waffleId) {
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.increaseCommentCount();
+
+        return waffle;
+    }
+
+    public Waffle decreaseCommentCount(Long waffleId) {
+        Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
+        waffle.decreaseCommentCount();
+
+        return waffle;
+    }
+
     public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
 
         return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);

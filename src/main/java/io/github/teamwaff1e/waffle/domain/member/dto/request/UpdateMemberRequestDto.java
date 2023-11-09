@@ -4,10 +4,13 @@ import io.github.teamwaff1e.waffle.global.dto.request.RequestDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class UpdateMemberRequestDto implements RequestDto {
-    @NotBlank(message = "닉네임 데이터가 없습니다.")
+  
+    @NotBlank
     private String nickname;
 }

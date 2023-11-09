@@ -1,5 +1,6 @@
 package io.github.teamwaff1e.waffle.domain.comment.dto.response;
 
+import io.github.teamwaff1e.waffle.domain.member.dto.response.OwnerResponseDto;
 import io.github.teamwaff1e.waffle.global.dto.response.ResponseDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,5 +16,6 @@ public class CommentResponseDto implements ResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private OwnerResponseDto owner;
 
 }
