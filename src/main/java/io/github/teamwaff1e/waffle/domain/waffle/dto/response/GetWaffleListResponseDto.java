@@ -48,7 +48,6 @@ public class GetWaffleListResponseDto implements ResponseDto {
     }
 
     private static List<WaffleResponseDto> getContents(List<Waffle> feedsScroll) {
-        // TODO comment 가져오기 -> 필요없나?
         return feedsScroll.stream()
                 .map(converter::convert)
                 .collect(Collectors.toList());

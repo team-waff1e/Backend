@@ -80,13 +80,13 @@ public class WaffleRepository {
         return waffle;
     }
 
-    public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
+    public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
 
-        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
+        return waffleDao.findByIdxLessThanAndFollowInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
     }
 
-    public List<Waffle> findWaffleListByMemberId(Long waffleId) {
-        return waffleDao.findWaffleListByMemberId(waffleId);
+    public Page<Waffle> findWaffleListByMemberIdInOrderByIdDesc(Long lastArticleIdx, Long memberId, PageRequest pageRequest) {
+        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, memberId, pageRequest);
     }
 
     public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
