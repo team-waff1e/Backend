@@ -61,6 +61,6 @@ public class CommentController {
                               @PathVariable @NotNull @Positive Long waffleId,
                               @PathVariable @NotNull @Positive Long commentId) {
 
-        commentService.deleteComment(waffleId, commentId);
+        commentService.deleteComment(authVo, waffleId, commentId);
     }
 }
