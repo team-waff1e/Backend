@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -45,9 +46,9 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
 
     public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastWaffleIdx, List<Follow> follows, PageRequest pageRequest) {
         String jpql = "SELECT w FROM Waffle w " +
-                "WHERE w.id < :lastWaffleIdx " +
+                "WHERE w.id > :lastWaffleIdx " +
                 "AND w.member.id IN :follows " +
-                "ORDER BY w.id DESC ";
+                "ORDER BY w.createdAt DESC ";
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
         query.setParameter("lastWaffleIdx", lastWaffleIdx);
@@ -58,24 +59,14 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
 
         List<Waffle> result = query.getResultList();
 
-        String countJpql = "SELECT COUNT(w) FROM Waffle w " +
-                "WHERE w.id < :lastWaffleIdx " +
-                "AND w.member.id IN :follows";
-
-        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
-        countQuery.setParameter("lastWaffleIdx", lastWaffleIdx);
-        countQuery.setParameter("follows", follows);
-
-        Long totalCount = countQuery.getSingleResult();
-
-        return new PageImpl<>(result, pageRequest, totalCount);
+        return new PageImpl<>(result, pageRequest, result.size());
     }
 
     public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastWaffleIdx, Long memberId, PageRequest pageRequest) {
-        String jpql = "SELECT w FROM Waffle w " +
-                "WHERE w.id < :lastWaffleIdx " +
-                "AND w.member.id = :memberId " +
-                "ORDER BY w.id DESC ";
+            String jpql = "SELECT w FROM Waffle w " +
+                    "WHERE w.id > :lastWaffleIdx " +
+                    "AND w.member.id = :memberId " +
+                    "ORDER BY w.createdAt DESC ";
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
         query.setParameter("lastWaffleIdx", lastWaffleIdx);
@@ -86,27 +77,7 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
 
         List<Waffle> result = query.getResultList();
 
-        String countJpql = "SELECT COUNT(w) FROM Waffle w " +
-                "WHERE w.id < :lastWaffleIdx " +
-                "AND w.member.id = :memberId";
-
-        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
-        countQuery.setParameter("lastWaffleIdx", lastWaffleIdx);
-        countQuery.setParameter("memberId", memberId);
-
-        Long totalCount = countQuery.getSingleResult();
-
-        return new PageImpl<>(result, pageRequest, totalCount);
-    }
-
-    public List<Waffle> findWaffleListByMemberId(Long waffleId) {
-        String jpql = "SELECT w FROM Waffle w " +
-                "WHERE w.member.id = :waffleId";
-
-        TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
-        query.setParameter("waffleId", waffleId);
-
-        return query.getResultList();
+        return new PageImpl<>(result, pageRequest, result.size());
     }
 
     public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {

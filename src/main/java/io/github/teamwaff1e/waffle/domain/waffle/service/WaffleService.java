@@ -8,8 +8,7 @@ import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.service.MemberService;
 import io.github.teamwaff1e.waffle.domain.member.repository.MemberRepository;
-import io.github.teamwaff1e.waffle.domain.waffle.dto.response.GetWaffleListResponseDto;
-import io.github.teamwaff1e.waffle.domain.waffle.util.ScrollPaginationCollection;
+import io.github.teamwaff1e.waffle.domain.waffle.dto.response.WaffleListResponseDto;
 import io.github.teamwaff1e.waffle.global.dto.converter.DtoConverter;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.CreateWaffleRequestDto;
 import io.github.teamwaff1e.waffle.domain.waffle.dto.request.UpdateWaffleRequestDto;
@@ -20,6 +19,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,23 +55,38 @@ public class WaffleService {
         Waffle waffle = waffleRepository.find(waffleId);
         return converter.convert(waffle);
     }
-    public GetWaffleListResponseDto readWaffleList(Long idx, PageRequest pageRequest, Integer limit, Long loginMemberId) {
+
+    public WaffleListResponseDto readWaffleList(Long lastWaffleIdx, Long loginMemberId, PageRequest pageRequest) {
         List<Follow> follows = memberService.readFollowById(loginMemberId);
-        Page<Waffle> page = waffleRepository.findByIdxLessThanAndFollowInOrderByIdDesc(idx, follows, pageRequest);
 
-        List<Waffle> waffleList = page.getContent();
-        ScrollPaginationCollection<Waffle> feedsCursor = ScrollPaginationCollection.of(waffleList, limit);
+        List<WaffleResponseDto> contents = waffleRepository.findByIdxLessThanAndFollowInOrderByIdDesc(lastWaffleIdx, follows, pageRequest)
+                .map(converter::convert)
+                .toList();
 
-        return GetWaffleListResponseDto.of(feedsCursor, waffleList.size());
+        int size = contents.size();
+        Long lastIdx = contents.get(contents.size()-1).getId();
+
+        return WaffleListResponseDto.builder()
+                .contents(contents)
+                .lastIdx(lastIdx)
+                .size(size)
+                .build();
+
     }
 
-    public GetWaffleListResponseDto readWaffleListByMemberInOrderByIdDesc(Long idx, PageRequest pageRequest, Integer limit, Long memberId) {
-        Page<Waffle> page = waffleRepository.findWaffleListByMemberIdInOrderByIdDesc(idx, memberId, pageRequest);
-        List<Waffle> waffleList = page.getContent();
-        ScrollPaginationCollection<Waffle> feedCursur = ScrollPaginationCollection.of(waffleList, limit);
+    public WaffleListResponseDto readWaffleListByMemberInOrderByIdDesc(Long lastWaffleIdx, Long memberId, PageRequest pageRequest) {
+        List<WaffleResponseDto> contents = waffleRepository.findWaffleListByMemberIdInOrderByIdDesc(lastWaffleIdx, memberId, pageRequest)
+                .map(converter::convert)
+                .toList();
 
-        return GetWaffleListResponseDto.of(feedCursur, waffleList.size());
+        int size = contents.size();
+        Long lastIdx = contents.get(contents.size()-1).getId();
 
+        return WaffleListResponseDto.builder()
+                .contents(contents)
+                .lastIdx(lastIdx)
+                .size(size)
+                .build();
     }
 
     public WaffleResponseDto updateWaffle(Long waffleId, Long memberId, UpdateWaffleRequestDto updateWaffleRequestDto) throws IllegalAccessException {
@@ -111,4 +126,5 @@ public class WaffleService {
         Waffle unlikedWaffle = waffleRepository.unlike(likesRequestDto);
         return converter.convert(unlikedWaffle);
     }
+
 }

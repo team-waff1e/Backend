@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -76,16 +77,15 @@ public class WaffleRepository {
         return waffle;
     }
 
-    public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
-
-        return waffleDao.findByIdxLessThanAndFollowInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
-    }
-
-    public Page<Waffle> findWaffleListByMemberIdInOrderByIdDesc(Long lastArticleIdx, Long memberId, PageRequest pageRequest) {
-        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, memberId, pageRequest);
+    public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastWaffleIdx, List<Follow> follows, PageRequest pageRequest) {
+        return waffleDao.findByIdxLessThanAndFollowInOrderByIdDesc(lastWaffleIdx, follows, pageRequest);
     }
 
     public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
         return waffleDao.findWaffleByWaffleIdAndMemberId(waffleId, memberId);
+    }
+
+    public Page<Waffle> findWaffleListByMemberIdInOrderByIdDesc(Long lastWaffleIdx, Long memberId, PageRequest pageRequest) {
+        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastWaffleIdx, memberId, pageRequest);
     }
 }
