@@ -48,10 +48,6 @@ public class WaffleRepository {
         return waffle;
     }
 
-    public boolean isLiked(LikesRequestDto likesRequestDto) {
-        return likesDao.findLikesById(likesRequestDto) != null;
-    }
-
     public Waffle update(Long waffleId, UpdateWaffleRequestDto updateWaffleRequestDto) {
         Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.updateWaffleContent(updateWaffleRequestDto.getContent());

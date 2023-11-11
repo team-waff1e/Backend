@@ -2,6 +2,8 @@ package io.github.teamwaff1e.waffle.domain.waffle.service;
 
 import io.github.teamwaff1e.waffle.domain.auth.vo.AuthVo;
 import io.github.teamwaff1e.waffle.domain.likes.dto.request.LikesRequestDto;
+import io.github.teamwaff1e.waffle.domain.likes.entity.Likes;
+import io.github.teamwaff1e.waffle.domain.likes.repository.LikesRepository;
 import io.github.teamwaff1e.waffle.domain.member.entity.Follow;
 import io.github.teamwaff1e.waffle.domain.member.entity.Member;
 import io.github.teamwaff1e.waffle.domain.member.service.MemberService;
@@ -31,6 +33,7 @@ public class WaffleService {
     private final MemberService memberService;
     private final WaffleRepository waffleRepository;
     private final MemberRepository memberRepository;
+    private final LikesRepository likesRepository;
 
     private final DtoConverter<Waffle, WaffleResponseDto> converter;
 
@@ -85,21 +88,27 @@ public class WaffleService {
         waffleRepository.delete(waffleId);
     }
 
-    public WaffleResponseDto likeWaffle(LikesRequestDto likesRequestDto) {
-        if(waffleRepository.isLiked(likesRequestDto)) {
-            waffleRepository.unlike(likesRequestDto);
-            // TODO return
+    public WaffleResponseDto likeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리
+        Member member = memberRepository.find(likesRequestDto.getMemberId());
+
+        Waffle waffle = waffleRepository.find(likesRequestDto.getWaffleId());
+
+        if(likesRepository.find(likesRequestDto).isPresent()) {
+            throw new IllegalArgumentException();
         }
-        Waffle waffle = waffleRepository.like(likesRequestDto);
-        return converter.convert(waffle);
+
+        Waffle likedWaffle = waffleRepository.like(likesRequestDto);
+        return converter.convert(likedWaffle);
     }
 
-    public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {
-        if(!waffleRepository.isLiked(likesRequestDto)) {
-            waffleRepository.like(likesRequestDto);
-            // TODO return
-        }
-        Waffle waffle = waffleRepository.unlike(likesRequestDto);
-        return converter.convert(waffle);
+    public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리
+        Member member = memberRepository.find(likesRequestDto.getMemberId());
+
+        Waffle waffle = waffleRepository.find(likesRequestDto.getWaffleId());
+
+        Likes likes = likesRepository.find(likesRequestDto).orElseThrow(IllegalArgumentException::new);
+
+        Waffle unlikedWaffle = waffleRepository.unlike(likesRequestDto);
+        return converter.convert(unlikedWaffle);
     }
 }
