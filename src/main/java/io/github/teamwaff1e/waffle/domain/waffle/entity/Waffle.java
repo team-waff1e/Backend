@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,6 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@DynamicInsert
 public class Waffle {
 
     @Id
@@ -38,11 +41,8 @@ public class Waffle {
     private Member member;
 
     @Builder
-    protected Waffle(Long id, String content, Long likesCount, Long commentCount, Member member) {
-        this.id = id;
+    protected Waffle(String content, Member member) {
         this.content = content;
-        this.likesCount = likesCount;
-        this.commentCount = commentCount;
         this.member = member;
     }
 

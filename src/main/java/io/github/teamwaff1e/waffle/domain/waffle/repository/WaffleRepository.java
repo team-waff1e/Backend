@@ -48,10 +48,6 @@ public class WaffleRepository {
         return waffle;
     }
 
-    public boolean isLiked(LikesRequestDto likesRequestDto) {
-        return likesDao.findLikesById(likesRequestDto) != null;
-    }
-
     public Waffle update(Long waffleId, UpdateWaffleRequestDto updateWaffleRequestDto) {
         Waffle waffle = waffleDao.findById(waffleId).orElseThrow(IllegalArgumentException::new);
         waffle.updateWaffleContent(updateWaffleRequestDto.getContent());
@@ -80,16 +76,15 @@ public class WaffleRepository {
         return waffle;
     }
 
-    public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastArticleIdx, List<Follow> follows, PageRequest pageRequest) {
-
-        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastArticleIdx, follows, pageRequest);
-    }
-
-    public List<Waffle> findWaffleListByMemberId(Long waffleId) {
-        return waffleDao.findWaffleListByMemberId(waffleId);
+    public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastWaffleIdx, List<Follow> follows, PageRequest pageRequest) {
+        return waffleDao.findByIdxLessThanAndFollowInOrderByIdDesc(lastWaffleIdx, follows, pageRequest);
     }
 
     public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
         return waffleDao.findWaffleByWaffleIdAndMemberId(waffleId, memberId);
+    }
+
+    public Page<Waffle> findWaffleListByMemberIdInOrderByIdDesc(Long lastWaffleIdx, Long memberId, PageRequest pageRequest) {
+        return waffleDao.findByIdxLessThanAndMemberInOrderByIdDesc(lastWaffleIdx, memberId, pageRequest);
     }
 }

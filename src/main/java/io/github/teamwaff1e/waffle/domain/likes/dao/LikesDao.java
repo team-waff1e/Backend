@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Component
 @Transactional
 @RequiredArgsConstructor
@@ -19,20 +21,26 @@ public class LikesDao {
                 .memberId(likesRequestDto.getMemberId())
                 .waffleId(likesRequestDto.getWaffleId())
                 .build();
-        entityManager.persist(likes);
+
+        Likes attachedLikes = entityManager.merge(likes);
+        entityManager.persist(attachedLikes);
+//        entityManager.persist(likes);
     }
     public void unlike(LikesRequestDto likesRequestDto){
         Likes likes = Likes.builder()
                 .memberId(likesRequestDto.getMemberId())
                 .waffleId(likesRequestDto.getWaffleId())
                 .build();
-        entityManager.remove(likes);
+
+        Likes attachedLikes = entityManager.merge(likes);
+        entityManager.remove(attachedLikes);
+//        entityManager.remove(likes);
     }
 
-    public Likes findLikesById(LikesRequestDto likesRequestDto){
+    public Optional<Likes> findLikesById(LikesRequestDto likesRequestDto){
         return entityManager.createQuery("select l from Likes as l where l.memberId=:memberId and l.waffleId=:waffleId",Likes.class)
                 .setParameter("memberId", likesRequestDto.getMemberId())
                 .setParameter("waffleId", likesRequestDto.getWaffleId())
-                .getResultList().get(0);
+                .getResultList().stream().findAny();
     }
 }
