@@ -44,7 +44,8 @@ public class WaffleService {
                 .build();
 
         Waffle waffle =  waffleRepository.save(newWaffle);
-        return converter.convert(waffle);
+        WaffleResponseDto waffleResponseDto = converter.convert(waffle);
+        return waffleResponseDto.setDefaultValue(waffleResponseDto);
     }
 
     public WaffleResponseDto readWaffle(Long waffleId) {

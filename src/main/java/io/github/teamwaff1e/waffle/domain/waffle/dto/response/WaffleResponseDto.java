@@ -19,4 +19,9 @@ public class WaffleResponseDto implements ResponseDto {
     private LocalDateTime updatedAt;
     private OwnerResponseDto owner;
 
+    public WaffleResponseDto setDefaultValue(WaffleResponseDto waffleResponseDto) {
+        waffleResponseDto.likesCount = waffleResponseDto.commentCount = 0L;
+        return waffleResponseDto;
+    }
+
 }
