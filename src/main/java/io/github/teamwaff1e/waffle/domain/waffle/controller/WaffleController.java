@@ -51,7 +51,7 @@ public class WaffleController {
 
     }
 
-    @GetMapping
+    @GetMapping("/memberId")
     @ResponseStatus(HttpStatus.OK)
     public GetWaffleListResponseDto readWaffleListByMemberId(@RequestParam Long memberId,
                                                              @RequestParam Integer limit,
