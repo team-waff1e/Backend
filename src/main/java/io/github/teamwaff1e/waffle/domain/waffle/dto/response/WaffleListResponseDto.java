@@ -12,5 +12,5 @@ public class WaffleListResponseDto {
     private List<WaffleResponseDto> contents;
     private Long lastIdx;
     private Integer size;
-//    private boolean isLast;
+    private boolean isLast;
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Component
@@ -44,14 +45,18 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
     }
 
     public Page<Waffle> findByIdxLessThanAndFollowInOrderByIdDesc(Long lastWaffleIdx, List<Follow> follows, PageRequest pageRequest) {
+        List<Long> followIds = follows.stream()
+                .map(Follow::getFollowingId)
+                .collect(Collectors.toList());
+
         String jpql = "SELECT w FROM Waffle w " +
                 "WHERE w.id > :lastWaffleIdx " +
-                "AND w.member.id IN :follows " +
+                "AND w.member.id IN :followIds " +
                 "ORDER BY w.createdAt DESC ";
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
         query.setParameter("lastWaffleIdx", lastWaffleIdx);
-        query.setParameter("follows", follows);
+        query.setParameter("followIds", followIds);
 
         query.setFirstResult(pageRequest.getPageNumber() * pageRequest.getPageSize());
         query.setMaxResults(pageRequest.getPageSize());

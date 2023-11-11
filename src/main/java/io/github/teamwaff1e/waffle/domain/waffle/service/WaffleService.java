@@ -63,11 +63,13 @@ public class WaffleService {
 
         int size = contents.size();
         Long lastIdx = contents.get(contents.size()-1).getId();
+        boolean isLast = size < pageRequest.getPageSize();
 
         return WaffleListResponseDto.builder()
                 .contents(contents)
                 .lastIdx(lastIdx)
                 .size(size)
+                .isLast(isLast)
                 .build();
 
     }
@@ -79,11 +81,13 @@ public class WaffleService {
 
         int size = contents.size();
         Long lastIdx = contents.get(contents.size()-1).getId();
+        boolean isLast = size < pageRequest.getPageSize();
 
         return WaffleListResponseDto.builder()
                 .contents(contents)
                 .lastIdx(lastIdx)
                 .size(size)
+                .isLast(isLast)
                 .build();
     }
 
