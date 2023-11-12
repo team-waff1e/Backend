@@ -36,9 +36,9 @@ public class WaffleController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)  // TODO 최초 요청시 idx 값 어떻게 할지
     public WaffleListResponseDto readWaffleList(@Login AuthVo authVo,
-                                                @RequestParam Long idx,
+                                                @RequestParam(defaultValue = "0") Long idx,
                                                 @RequestParam Integer limit) {
 
         if(authVo == null) {
@@ -53,7 +53,7 @@ public class WaffleController {
     @GetMapping("/memberId")
     @ResponseStatus(HttpStatus.OK)
     public WaffleListResponseDto readWaffleListByMemberId(@RequestParam Long memberId,
-                                                          @RequestParam Long idx,
+                                                          @RequestParam(defaultValue = "0") Long idx,
                                                           @RequestParam Integer limit) {
 
         PageRequest pageRequest = PageRequest.of(0, limit);
