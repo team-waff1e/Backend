@@ -25,8 +25,9 @@ public class WaffleResponseDto implements ResponseDto {
         return waffleResponseDto;
     }
 
-    public void setIsLiked(boolean isLiked) {
+    public WaffleResponseDto setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
+        return this;
     }
 
 }

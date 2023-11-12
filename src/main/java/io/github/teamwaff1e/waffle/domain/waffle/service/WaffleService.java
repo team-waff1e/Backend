@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -124,7 +123,8 @@ public class WaffleService {
         }
 
         Waffle likedWaffle = waffleRepository.like(likesRequestDto);
-        return converter.convert(likedWaffle);
+        return converter.convert(likedWaffle).setIsLiked(true);
+
     }
 
     public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리  // TODO DTO Service에서 까도록
@@ -135,7 +135,8 @@ public class WaffleService {
         Likes likes = likesRepository.findOneByMemberAndWaffleId(member.getId(), waffle.getId()).orElseThrow(IllegalArgumentException::new);
 
         Waffle unlikedWaffle = waffleRepository.unlike(likesRequestDto);
-        return converter.convert(unlikedWaffle);
+        return converter.convert(unlikedWaffle).setIsLiked(false);
+
     }
 
 }
