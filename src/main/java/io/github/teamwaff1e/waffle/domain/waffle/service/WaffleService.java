@@ -20,8 +20,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -60,6 +63,12 @@ public class WaffleService {
         List<WaffleResponseDto> contents = waffleRepository.findByIdxLessThanAndFollowInOrderByIdDesc(lastWaffleIdx, follows, pageRequest)
                 .map(converter::convert)
                 .toList();
+
+        Map<Long, Boolean> likesMap = new HashMap<>();
+        for (WaffleResponseDto c : contents) {
+            boolean isLiked = likesMap.computeIfAbsent(c.getId(), id -> likesRepository.findOneByMemberAndWaffleId(loginMemberId, id).isPresent());
+            c.setIsLiked(isLiked);
+        }
 
         int size = contents.size();
         Long lastIdx = contents.get(contents.size()-1).getId();
@@ -105,12 +114,12 @@ public class WaffleService {
         waffleRepository.delete(waffleId);
     }
 
-    public WaffleResponseDto likeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리
+    public WaffleResponseDto likeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리  // TODO DTO Service에서 까도록
         Member member = memberRepository.find(likesRequestDto.getMemberId());
 
         Waffle waffle = waffleRepository.find(likesRequestDto.getWaffleId());
 
-        if(likesRepository.find(likesRequestDto).isPresent()) {
+        if(likesRepository.findOneByMemberAndWaffleId(member.getId(), waffle.getId()).isPresent()) {
             throw new IllegalArgumentException();
         }
 
@@ -118,12 +127,12 @@ public class WaffleService {
         return converter.convert(likedWaffle);
     }
 
-    public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리
+    public WaffleResponseDto unlikeWaffle(LikesRequestDto likesRequestDto) {  // TODO 예외처리  // TODO DTO Service에서 까도록
         Member member = memberRepository.find(likesRequestDto.getMemberId());
 
         Waffle waffle = waffleRepository.find(likesRequestDto.getWaffleId());
 
-        Likes likes = likesRepository.find(likesRequestDto).orElseThrow(IllegalArgumentException::new);
+        Likes likes = likesRepository.findOneByMemberAndWaffleId(member.getId(), waffle.getId()).orElseThrow(IllegalArgumentException::new);
 
         Waffle unlikedWaffle = waffleRepository.unlike(likesRequestDto);
         return converter.convert(unlikedWaffle);

@@ -39,7 +39,7 @@ public class WaffleController {
     @ResponseStatus(HttpStatus.OK)
     public WaffleListResponseDto readWaffleList(@Login AuthVo authVo,
                                                 @RequestParam Long idx,
-                                                @RequestParam Integer limit) {  // lastFeedId
+                                                @RequestParam Integer limit) {
 
         if(authVo == null) {
             // TODO 로그인 여부 분기
