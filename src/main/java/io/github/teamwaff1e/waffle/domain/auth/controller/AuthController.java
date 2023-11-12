@@ -29,32 +29,32 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public void signUp(@RequestBody SignupRequestDto signupRequestDto) {
+    public void signUp(@Validated @RequestBody SignupRequestDto signupRequestDto) {
         authService.signUp(signupRequestDto);
     }
 
     @PostMapping("/signup/nickname")
     @ResponseStatus(HttpStatus.OK)
-    public void validateNickname(@RequestBody ValidateNicknameRequestDto validateNicknameRequestDto) {
+    public void validateNickname(@Validated @RequestBody ValidateNicknameRequestDto validateNicknameRequestDto) {
         authService.validateNickname(validateNicknameRequestDto.getNickname());
     }
 
     @PostMapping("/signup/email")
     @ResponseStatus(HttpStatus.OK)
-    public void validateEmail(@RequestBody ValidateEmailRequestDto validateEmailRequestDto) {
+    public void validateEmail(@Validated @RequestBody ValidateEmailRequestDto validateEmailRequestDto) {
         authService.validateEmail(validateEmailRequestDto.getEmail());
 
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public void login(HttpServletRequest request, @Validated @RequestBody LoginRequestDto loginRequestDto,
-                      @Login AuthVo loginAuthVo) {
+    public void login(@Login(allowUnauthenticated = true) AuthVo loginAuthVo, HttpServletRequest request,
+                      @Validated @RequestBody LoginRequestDto loginRequestDto) {
 
         // todo: decrypt password
 
-        if (loginAuthVo != null) {
-            return; // todo: return null or throw exception
+        if (loginAuthVo.isAuthenticated()) {
+            throw new IllegalStateException(); // todo
         }
 
         AuthVo authVo = authService.login(loginRequestDto);

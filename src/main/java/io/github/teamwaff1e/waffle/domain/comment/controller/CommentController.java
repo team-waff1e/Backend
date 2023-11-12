@@ -57,8 +57,10 @@ public class CommentController {
 
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(@PathVariable @NotNull @Positive Long waffleId,
+    public void deleteComment(@Login AuthVo authVo,
+                              @PathVariable @NotNull @Positive Long waffleId,
                               @PathVariable @NotNull @Positive Long commentId) {
-        commentService.deleteComment(waffleId, commentId);
+
+        commentService.deleteComment(authVo, waffleId, commentId);
     }
 }

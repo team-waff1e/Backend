@@ -29,10 +29,22 @@ public class LoginAuthVoArgumentResolver implements HandlerMethodArgumentResolve
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         HttpSession session = request.getSession(false);
 
-        if (session == null) {
-            return null;
+        Login login = parameter.getParameterAnnotation(Login.class);
+
+        if (session == null || session.getAttribute(AuthConstant.AUTH_SESSION_KEY) == null) {
+            if (login.allowUnauthenticated()) {
+                return AuthVo.newUnauthenticatedInstance();
+            }
+
+            throw new IllegalAccessException();
         }
 
-        return session.getAttribute(AuthConstant.AUTH_SESSION_KEY);
+        AuthVo authVo = (AuthVo) session.getAttribute(AuthConstant.AUTH_SESSION_KEY);
+
+        if (authVo.isAuthenticated()) {
+            return authVo;
+        }
+
+        throw new IllegalAccessException();
     }
 }
