@@ -20,12 +20,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new LoginInterceptor())
 //                .order(1)
-////                .addPathPatterns("/members**") // todo
+//                .addPathPatterns("/**") // todo
 //                .excludePathPatterns(
-//                        "/auth**",
-//                        "/members/{[0-9+]}",
-//                        "/members**"// todo
-//
+//                        "/auth/**",
+//                        "/errors/**",
+//                        "/members",
+//                        "/members/{[0-9]+}"
 //                );
     }
 }

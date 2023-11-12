@@ -51,6 +51,6 @@ public class AuthService {
         Member member = authRepository.findValidMember(loginRequestDto.getEmail(), loginRequestDto.getPwd())
                 .orElseThrow(LoginFailureException::new);
 
-        return new AuthVo(member.getId());
+        return AuthVo.from(member.getId());
     }
 }

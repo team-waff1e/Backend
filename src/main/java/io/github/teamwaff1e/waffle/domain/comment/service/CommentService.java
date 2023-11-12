@@ -67,7 +67,16 @@ public class CommentService {
         return converter.convert(updatedComment);
     }
 
-    public void deleteComment(Long waffleId, Long commentId) {
+    public void deleteComment(AuthVo authVo, Long waffleId, Long commentId) {
+
+        Comment comment = commentRepository.find(waffleId, commentId);
+        Member commentMember = comment.getMember();
+        Member loginMember = memberRepository.find(authVo.getMemberId());
+
+        if (loginMember != commentMember) {
+            throw new UnauthorizedException(); // todo: error message
+        }
+
         commentRepository.delete(waffleId, commentId);
         waffleRepository.decreaseCommentCount(waffleId);
     }
