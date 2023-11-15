@@ -12,7 +12,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,14 +51,23 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
                 .map(Follow::getFollowingId)
                 .collect(Collectors.toList());
 
-        String jpql = "SELECT w FROM Waffle w " +
-                "WHERE w.id > :lastWaffleIdx " +
-                "AND w.member.id IN :followIds " +
-                "ORDER BY w.createdAt DESC ";
+        String jpql = "SELECT w FROM Waffle w WHERE";
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (lastWaffleIdx != 0) {
+            jpql += " w.id < :lastWaffleIdx AND";
+            parameters.put("lastWaffleIdx", lastWaffleIdx);
+        }
+
+        jpql += " w.member.id IN :followIds ORDER BY w.createdAt DESC";
+
+        parameters.put("followIds", followIds);
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
-        query.setParameter("lastWaffleIdx", lastWaffleIdx);
-        query.setParameter("followIds", followIds);
+
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
 
         query.setFirstResult(pageRequest.getPageNumber() * pageRequest.getPageSize());
         query.setMaxResults(pageRequest.getPageSize());
@@ -67,14 +78,23 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
     }
 
     public Page<Waffle> findByIdxLessThanAndMemberInOrderByIdDesc(Long lastWaffleIdx, Long memberId, PageRequest pageRequest) {
-            String jpql = "SELECT w FROM Waffle w " +
-                    "WHERE w.id > :lastWaffleIdx " +
-                    "AND w.member.id = :memberId " +
-                    "ORDER BY w.createdAt DESC ";
+        String jpql = "SELECT w FROM Waffle w WHERE";
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (lastWaffleIdx != 0) {
+            jpql += " w.id < :lastWaffleIdx AND";
+            parameters.put("lastWaffleIdx", lastWaffleIdx);
+        }
+
+        jpql += " w.member.id = :memberId ORDER BY w.createdAt DESC";
+
+        parameters.put("memberId", memberId);
 
         TypedQuery<Waffle> query = entityManager.createQuery(jpql, Waffle.class);
-        query.setParameter("lastWaffleIdx", lastWaffleIdx);
-        query.setParameter("memberId", memberId);
+
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
 
         query.setFirstResult(pageRequest.getPageNumber() * pageRequest.getPageSize());
         query.setMaxResults(pageRequest.getPageSize());
@@ -83,6 +103,7 @@ public class WaffleDao implements CrudDao<Waffle, Long> {
 
         return new PageImpl<>(result, pageRequest, result.size());
     }
+
 
     public Optional<Waffle> findWaffleByWaffleIdAndMemberId(Long waffleId, Long memberId) {
         String jpql = "SELECT w FROM Waffle w " +

@@ -18,10 +18,16 @@ public class WaffleResponseDto implements ResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private OwnerResponseDto owner;
+    private boolean isLiked;
 
     public WaffleResponseDto setDefaultValue(WaffleResponseDto waffleResponseDto) {
         waffleResponseDto.likesCount = waffleResponseDto.commentCount = 0L;
         return waffleResponseDto;
+    }
+
+    public WaffleResponseDto setIsLiked(boolean isLiked) {
+        this.isLiked = isLiked;
+        return this;
     }
 
 }

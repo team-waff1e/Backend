@@ -37,10 +37,11 @@ public class LikesDao {
 //        entityManager.remove(likes);
     }
 
-    public Optional<Likes> findLikesById(LikesRequestDto likesRequestDto){
+    public Optional<Likes> findOneByMemberAndWaffleId(Long memberId, Long waffleId){
         return entityManager.createQuery("select l from Likes as l where l.memberId=:memberId and l.waffleId=:waffleId",Likes.class)
-                .setParameter("memberId", likesRequestDto.getMemberId())
-                .setParameter("waffleId", likesRequestDto.getWaffleId())
+                .setParameter("memberId", memberId)
+                .setParameter("waffleId", waffleId)
                 .getResultList().stream().findAny();
     }
+
 }
